@@ -78,7 +78,14 @@
 %% Verify user name all repos:
 %%   $ git config --global user.name
 %%   Bob Jones
-%%   
+%%
+%% Changing your username in Git only affects commits that
+%% you make after your change.
+%%
+%% To rewrite your old commits, you can use git filter-branch[1]
+%% to change the repository history to use your new username.
+%% [1] https://help.github.com/articles/changing-author-info
+%%
 \input{./filexfer-vc.tex}
 
 %%
@@ -232,7 +239,7 @@ pdfkeywords={FileXfer, file transfer jobs}
 
 \title{FileXfer\\ File Transfer Jobs}
 
-\author{Raymond E. Marcil\\
+\author{\GITAuthorName\\
         \texttt{$<$rmarcil@gci.com$>$}
 }
 
@@ -246,7 +253,8 @@ pdfkeywords={FileXfer, file transfer jobs}
 %% Thore Husfelt
 %% https://thorehusfeldt.net/2011/05/13/including-git-revision-identifiers-in-latex/
 %%
-\date{Revision \GITAbrHash, \GITAuthorDate, \GITAuthorName}
+\date{Revision 1.2.3 (\normalsize{\texttt{\GITAbrHash}})\\
+                      \GITAuthorDate}
 
 
 % Set date to RCS revision date
