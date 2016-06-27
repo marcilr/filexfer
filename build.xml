@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<!-- =======================================================================
+  Resume build file.
+  Created Sun Nov 12 18:24:19 AKST 2006
+  Copyright (C) 2006 by Raymond E. Marcil
+  marcilr@rockhounding.net
+
+  Ant build.xml to compile LaTeX crafted by Jason Kattell at
+  DNR LRIS BPU.  He used the ant apply task to make it a bit
+  more abstract.  Cool stuff.
+  ========================================================================== -->
+<project name="Resume" default="dist" basedir=".">
+	<description>Build file for LaTex documents</description>
+
+
+<!-- ============ PROPERTIES ============ -->
+<property name="LATEX" 	value="latex"/>
+<property name="DVIPS" 	value="dvips"/>
+<property name="PS2PDF"	value="ps2pdf"/>
+
+
+<!-- =============== INIT ============== -->
+<target name="init">
+
+  <!-- create the time stamp -->
+  <tstamp>
+    <format property="C_TSTAMP" pattern="EEE MMM dd HH:mm:ss z yyyy"/>
+    <format property="MONTH"    pattern="MM"/>
+    <format property="DAY"      pattern="dd"/>
+    <format property="YEAR"     pattern="yyyy"/>
+  </tstamp>
+
+</target>
+
+
+<!-- ============ DVI =========== -->
+<target name="dvi" description="creates dvi file from tex file using laTeX">
+
+  <apply executable="${LATEX}" dest=".">
+    <srcfile/>
+    <targetfile/>
+    <fileset dir="." includes="*.tex"/>
+      <mapper type="glob" from="*.tex" to="*.dvi"/>
+  </apply>
+
+  <!-- Run LaTeX again to resolve dependencies -->
+  <apply executable="${LATEX}" dest="." force="true">
+    <srcfile/>
+    <targetfile/>
+    <fileset dir="." includes="*.tex"/>
+      <mapper type="glob" from="*.tex" to="*.dvi"/>
+  </apply>
+
+</target>
+
+
+<!-- ============== PS ============= -->
+<target name="ps" 
+        depends="dvi"
+        description="creates a ps file from a dvi file using dvips">
+
+  <apply executable="${DVIPS}">
+    <arg line="-z -Ppdf"/>
+      <srcfile/>
+      <fileset dir="." includes="*.dvi"/>
+  </apply>
+
+</target>
+	
+<!-- ================= PDF ================ -->
+<target name="pdf"
+        depends="ps"
+        description="creates a pdf from a ps file using ps2pdf">
+
+  <apply executable="${PS2PDF}" dest=".">
+    <srcfile/>
+    <targetfile/>
+    <fileset dir="." includes="*.ps"/>
+    <mapper type="glob" from="*.ps" to="*.pdf"/>
+  </apply>
+
+</target>
+
+	
+<!-- ================== DIST ================= -->
+<target name="dist" depends="init,pdf"/>
+	
+
+<!-- ================= CLEAN ================= -->
+<target name="clean" description="cleans generated files">
+
+  <delete>
+    <fileset dir="." includes="*.dvi,*.ps"/>
+    <fileset dir="." includes="*.aux,*.log,*.toc"/>
+    <fileset dir="." includes="*.lof,*.lot,*.out"/>
+    <fileset dir="." includes="*.tmp"/>
+  </delete>
+
+</target>
+
+
+<!-- ================= CYCLE ================= -->
+<target name="cycle"
+        depends="clean,dist"
+        description="rebuild project"/>
+
+
+</project>
