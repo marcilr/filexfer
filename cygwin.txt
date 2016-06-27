@@ -1,0 +1,67 @@
+README
+Created Wed Jul 25 09:22:08 AKDT 2007
+by Raymond E. Marcil <marcilr@gmail.com>
+
+
+Cygwin Build
+============
+Have been working on getting LaTeX to build PDFs conveniently
+under Cygwin for my ami-hq-rm WinXP workstation.  Working
+on the AMI MOA Inspection Request project.
+
+Build PDF document with Cygwin. Cygwin is a Linux-like environment 
+for Windows. 
+
+Cygwin installation on ami-hq-rm WinXP workstation:
+  D:\SW\Cygwin
+
+Cygwin uses the teTex package installed under Doc/tetex-doc: The TeX text 
+formatting system (documentation).
+
+
+Cygwin binaries
+===============
+A number of Cygwin binaries are used to build the 
+bsdinspect.pdf LaTeX document.
+
+/usr/bin/make
+/usr/bin/rm
+/usr/bin/latex
+/usr/bin/bibtex
+/usr/bin/dvips
+/usr/bin/ps2pdf
+/usr/bin/sed
+
+
+xdvi
+====
+To view *.dvi files in Cygwin.
+
+# Start X server
+$ cd /usr/X11R6bin
+$ ./startxwin.sh          # startxwin.bat wasn't working.
+
+# Use xdvi to view file.
+$ cd ~/inspection_request/docs/database/bsdinspect-database/
+$ ipconfig /all ==> 192.168.164.159
+$ export DISPLAY=192.168.164.159:0.0
+$ xdvi bsdinspect-database.dvi
+
+
+Filelist
+========
+Makefile
+  Standard GNU makefile to build document.
+
+clean.bat
+  Remove dynamically created files from build process.
+  Analogous to 'make clean' target.
+
+examples.tex
+  Fine LaTeX Examples template.
+  By Raymond E. Marcil June 26, 2006.
+
+make.bat
+  Build PDF from LaTeX source
+
+
