@@ -96,6 +96,13 @@ filexfer.tex
   GCI Network Services, FileXfer application
   Build from LaTeX Template with Examples
 
+filexfer-vc.tex
+  Git metadata for inclusion in *.tex file.
+  Updated by Makefile
+  Including Git Revision Identifiers in LaTeX
+  Thore Husfelt
+  https://thorehusfeldt.net/2011/05/13/including-git-revision-identifiers-in-latex/
+
 fullpage.sty
   Required for build (google).
   http://www.cs.princeton.edu/~boaz/latex/fullpage.sty
