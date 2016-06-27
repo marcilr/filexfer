@@ -151,11 +151,11 @@ EMAIL:=$(shell $(GIT) show -s --format='%ae' $(SHA1))
 
 
 # Identity non-file targets
-.PHONY: all bz2 clean cycle dvi dist install mostly-clean pdf ps
+.PHONY: all bz2 clean cycle dvi dist getdate install mostly-clean pdf ps
 
 all: cycle
 
-cycle: clean $(VC) ${DVI} ${PS} ${PDF}
+cycle: clean getdate $(VC) ${DVI} ${PS} ${PDF}
 
 # Remove temporary files, bz2 files, and pdf
 clean: mostly-clean
@@ -200,6 +200,25 @@ ${PDF}: ${PS}
 	$(PS2PDF) $(PS)
 
 #
+# Get the committer date %cd
+# Did not find any way to get git format this nicely.
+# Formatted the old fashioned way.
+#
+# The git log -1 --format="format:%cd" returns a not so pretty
+# datestamp like:
+#   $ git log -1 --format="format:%cd"
+#   Mon Jun 27 14:11:53 2016 -0800
+#
+# Needs a bit of cleanup to get June 27, 2016
+#
+getdate:
+	$(eval DATE := $(shell $(GIT) log -1 --format="format:%cd"))
+	$(eval MONTH := $(shell echo $(DATE) | $(CUT) -d' ' -f2))
+	$(eval DAY := $(shell echo $(DATE) | cut -d' ' -f3))
+	$(eval YEAR := $(shell echo $(DATE) | cut -d' ' -f5))
+	$(eval DATE := $(shell echo "$(MONTH) $(DAY), $(YEAR)"))
+
+#
 # Embed git version control number.
 #
 # Nice output:
@@ -219,9 +238,18 @@ ${VC}: .git/logs/HEAD
 	echo "\\gdef\\GITRevision{${REVISION}}" >> ${VC}
 	git log -1 --format="format:\
 		\\gdef\\GITAbrHash{%h}\
-		\\gdef\\GITAuthorDate{%ad}\
+		\\gdef\\GITAuthorDate{$(DATE)}\
 		\\gdef\\GITAuthorName{%an}" >> ${VC}
 
+#	git log -l --format="format:\
+#		\\gdef\\GITAuthorDate{%cd '+%B %d, %Y'}" >> ${VC}
+
+#        git log -l --pretty=format::%h %cd %s" >> ${VC}
+
+#
+# Original date format from thorehusfeldt.net/
+#
+# \\gdef\\GITAuthorDate{%ad}\
 
 #
 # Build distribution tarball
