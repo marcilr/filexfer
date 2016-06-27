@@ -181,7 +181,10 @@ ${PDF}: ${PS}
 #
 # Nice output:
 # $ git log --format=fuller
-# 
+#
+# I determined the GITAuthorEmail value above for inclusing in the
+# document title page.
+#
 # Thore Husfeldt
 # Including Git Revision Identifiers in LaTeX
 # https://thorehusfeldt.net/2011/05/13/including-git-revision-identifiers-in-latex/
