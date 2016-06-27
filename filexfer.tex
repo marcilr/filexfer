@@ -56,8 +56,30 @@
 %%
 %% FIXME: Need to update this for git.
 %%
-\usepackage{svninfo}
-\svnInfo $Id: filexfer.tex 52 2016-06-27 09:43:54Z marcilr $
+%%\usepackage{svninfo}
+%%\svnInfo $Id: filexfer.tex 52 2016-06-27 09:43:54Z marcilr $
+
+
+%%
+%% Including Git Revision Identifiers in LaTeX
+%% by Thore Husfeldt
+%% https://thorehusfeldt.net/2011/05/13/including-git-revision-identifiers-in-latex/
+%% Configure git user name
+%%   For individual repo:
+%%     $ git config user.name "Bob Jones"
+%%
+%%   For all repos:
+%%     $ git config --global user.name "Bob Jones"
+%%
+%% Verify user name for repo:
+%%   $ git config user.name
+%%   Bob Jones
+%%
+%% Verify user name all repos:
+%%   $ git config --global user.name
+%%   Bob Jones
+%%   
+\input{./filexfer-vc.tex}
 
 %%
 %% Hyperref package for embedding URLs for clickable links in PDFs, 
@@ -215,9 +237,16 @@ pdfkeywords={FileXfer, file transfer jobs}
 }
 
 % Display subversion revision and date under author on 1st page.
-\date{Revision \svnInfoRevision
-      \hspace{2pt}
-      (\svnInfoLongDate)}
+%%\date{Revision \svnInfoRevision
+%%      \hspace{2pt}
+%%      (\svnInfoLongDate)}
+
+%%
+%% Including Git Revision Identifiers in LaTeX
+%% Thore Husfelt
+%% https://thorehusfeldt.net/2011/05/13/including-git-revision-identifiers-in-latex/
+%%
+\date{Revision \GITAbrHash, \GITAuthorDate, \GITAuthorName}
 
 
 % Set date to RCS revision date
