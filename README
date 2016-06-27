@@ -87,6 +87,15 @@ figsys.sty
   FigSize v0.1 package to dynamically size figures 
   relative to the page size for graphicx package.
 
+filexfer.pdf
+  GCI Network Services, FileXfer application
+  Build from LaTeX Template with Examples compiled to portable document format
+  file.
+
+filexfer.tex
+  GCI Network Services, FileXfer application
+  Build from LaTeX Template with Examples
+
 fullpage.sty
   Required for build (google).
   http://www.cs.princeton.edu/~boaz/latex/fullpage.sty
@@ -95,12 +104,6 @@ subfigure.sty
   Figures divided into subfigures macro.  Required by figsize.sty
   http://ctan.org/tex-archive/obsolete/macros/latex/contrib/subfigure/
   http://mirror.ctan.org/obsolete/macros/latex/contrib/subfigure.zip
-
-template.pdf
-  LaTeX Template with Examples compiled to portable document format file.
-
-template.tex
-  LaTeX Template with Examples
 
 tocbibind.sty
   Add bibliography/index/contents to Table of Contents.
