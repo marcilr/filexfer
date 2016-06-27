@@ -1,0 +1,17 @@
+#
+# VERSION
+# Created Mon Jun 27 13:54:48 AKDT 2016
+# Copyright (C) Raymond E. Marcil
+# marcilr@gmail.com
+#
+# VERSION for GCI Network Services, OSS FileXfer documenation
+#
+
+major=0
+minor=0
+patch=1
+
+#
+# Created Mon Jun 27 13:54:48 AKDT 2016 - 0.0.1
+#   o Initial VERSION file. Read by build.xml.
+#
