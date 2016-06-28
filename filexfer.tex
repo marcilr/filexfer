@@ -331,7 +331,17 @@ pdfkeywords={FileXfer, file transfer jobs}
 %% ====================== Introduction ===========================
 \newpage
 \section{Introduction}
-Introduction to the \LaTeX\ Template with Examples.
+The FileXfer system...
+
+%% ====================== Job Scheduling ===========================
+%% ====================== Job Scheduling ===========================
+\section{Job Scheduling}
+Jobs are scheduled using a web interface at
+\texttt{nms.operations.gci.com/relevance}.  Navigate to the
+``FileXfer'' application and click the ``File Transfer Jobs'' link.
+Job execution happens on \texttt{prod-prov4-cdr1.operations.gci.com}.
+A \texttt{cron} job executes every minute from
+\texttt{/etc/cron.d/filexfer} to kick off the various filexfer scripts.
 
 
 %% ======================== Questions ============================
