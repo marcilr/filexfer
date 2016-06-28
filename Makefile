@@ -26,6 +26,23 @@
 # git lg definition here   <=== Sweet
 # http://fredkschott.com/post/2014/02/git-log-is-so-2005/
 #
+# Font sizes, families, and styles
+# Great latex formatting details here
+# https://www.sharelatex.com/learn/Font_sizes,_families,_and_styles
+#
+# GNU make
+# https://www.gnu.org/software/make/manual/make.html#Conditionals
+#
+# How to print out a variable in makefile
+# $(info $$var is [${var}])
+# http://stackoverflow.com/questions/16467718/how-to-print-out-a-variable-in-makefile
+#
+# Including Git Revision Identifiers in LaTeX
+# Thore Husfeldt
+# Source of "git log -l" syntax for git metadata, Makefile, and syntax
+# to include metadata in main latex document
+# https://thorehusfeldt.net/2011/05/13/including-git-revision-identifiers-in-latex/
+#
 # Makefile : contains string
 # Use of $(findstring find,in)
 # Beware freaky syntax
