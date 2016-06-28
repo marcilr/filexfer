@@ -11,6 +11,7 @@ footer on subsequent pages.  Specifically I think the footer on subsequest
 pages should have:
 
 o latex document name (like filexfer.tex)
+o git branch and such
 o 7-characters of SHA-1
 o Created by user on date
 o Updated by user on date
