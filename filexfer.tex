@@ -368,15 +368,16 @@ scheduled at any given interval, the parent process limits how
 many children can run concurrently.  As long as the limit is
 reached and more jobs need to be spawned, the parent process must
 stay alive. Since this may take longer than 1 minute, it is
-possible for filexfer to miss certain scheduling intervals.\\
+possible for \texttt{filexfer} to miss certain scheduling
+intervals.\\
 \\
 For example, if 500 jobs are scheduled to run at the top of every
 hour \texttt{(0 * * * *)} and the maximum child process limit is
 50, there is a good chance \texttt{filexfer} will not execute any
 jobs scheduled to run at 1 minute past the hour
 \texttt{(1 * * * *)}.  The best way to avoid this is to use
-0, 15, 30, or 45 in the minute field of the job schedule. These
-intervals are always
+\texttt{0}, \texttt{15}, \texttt{30}, or \texttt{45} in the
+minute field of the job schedule.  These intervals are always
 executed.\footnote{\href{http://oss-wiki.operations.gci.com/dev/index.php/Scheduling\_Usage\_Collection\_Jobs}{Job
     Timing}}
 
