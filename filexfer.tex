@@ -351,20 +351,23 @@ scripts.\footnote{\href{http://oss-wiki.operations.gci.com/dev/index.php/Usage_C
 %% ================== Application Logging ======================
 \section{Application Logging}
 The filexfer applications log to the \texttt{/var/log/filexfer}
-directory on\\ \texttt{prod-prov4-cdr1.operations.gci.com}. The
-parent \texttt{filexfer} jobs log to\\
-\texttt{filexfer-get.log}
-and \texttt{filexfer-put.log}. The \texttt{jobmonitor} and
-\texttt{dataloader} applications log to \texttt{jobmonitor.log}
-and \texttt{dataloader.log}, The \texttt{filexfer} applications
+directory on \texttt{prod-prov4-cdr1.}\textbackslash\\
+\texttt{operations.gci.com}. The parent \texttt{filexfer} jobs
+log to \texttt{filexfer-get.log} and
+\texttt{filexfer-}\textbackslash\\
+\texttt{put.log}.
+The \texttt{jobmonitor} and \texttt{dataloader} applications
+log to \texttt{jobmonitor.log} and\\
+\texttt{dataloader.log}, The \texttt{filexfer} applications
 log to the \texttt{/var/log/filexfer} directory on
-\texttt{prod-prov4-cdr1.operations.gci.com}. The parent\\
+\texttt{prod-prov4-cdr1.operations.gci.com}. The parent
 \texttt{filexfer} jobs
-log to \texttt{filexfer-get.log} and \texttt{filexfer-put.log}. The
-\texttt{jobmonitor} and \texttt{dataloader} applications log to
+log to \texttt{filexfer-get.}\textbackslash\\
+\texttt{log} and \texttt{filexfer-put.log}. The
+\texttt{jobmonitor} and \texttt{dataloader} applications log to\\
 \texttt{jobmonitor.log} and \texttt{dataloader.log}, respectively. Each file
 transfer job is executed as a child process and gets its own log file. The
-format is
+format is\\
 \texttt{filexfer-}$\{$\texttt{neName}$\}$\texttt{-}$\{$\texttt{idJob}$\}$\texttt{-}$\{$\texttt{get,put}$\}$\texttt{.log}.\\
 \\
 By default, the jobs log at the warn level.  Adjust the level to info to get a
