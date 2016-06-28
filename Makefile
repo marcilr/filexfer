@@ -126,6 +126,32 @@ SHA1:=$(shell $(GIT) rev-parse --verify HEAD)
 #
 EMAIL:=$(shell $(GIT) show -s --format='%ae' $(SHA1))
 
+#
+# Generate datestamp password to tex.
+#
+$(eval DATE := $(shell $(GIT) log -1 --format="format:%cd"))
+$(eval MONTH := $(shell echo $(DATE) | $(CUT) -d' ' -f2))
+$(info 1 - $$MONTH is [${MONTH}])
+#MONTH:=$(shell if [ "${MONTH}" = "Jun" ]; then echo "June"; fi )
+$(eval TESTMONTH := $(shell echo "${MONTH}" ))
+$(info $$TESTMONTH is [${TESTMONTH}])
+
+#
+# Notes for ifeq:
+# o Does not work under a target.
+# o Does not work with tabs.
+# o *Must* be in this format.
+#
+ifeq ($(MONTH),Jun)
+  $(info 2 - $$MONTH is ${MONTH})
+  $(eval MONTH := $(shell echo "June"))
+endif
+
+$(info 3 - $$MONTH is [${MONTH}])
+$(eval DAY := $(shell echo $(DATE) | cut -d' ' -f3))
+$(eval YEAR := $(shell echo $(DATE) | cut -d' ' -f5))
+$(eval DATE := $(shell echo "$(MONTH) $(DAY), $(YEAR)"))
+
 
 #
 # Get subversion revision number from latex file using:
@@ -151,11 +177,11 @@ EMAIL:=$(shell $(GIT) show -s --format='%ae' $(SHA1))
 
 
 # Identity non-file targets
-.PHONY: all bz2 clean cycle dvi dist getdate install mostly-clean pdf ps
+.PHONY: all bz2 clean cycle dvi dist install mostly-clean pdf ps
 
 all: cycle
 
-cycle: clean getdate $(VC) ${DVI} ${PS} ${PDF}
+cycle: clean $(VC) ${DVI} ${PS} ${PDF}
 
 # Remove temporary files, bz2 files, and pdf
 clean: mostly-clean
@@ -211,12 +237,29 @@ ${PDF}: ${PS}
 #
 # Needs a bit of cleanup to get June 27, 2016
 #
+# Define make variable at rule execution time
+# http://stackoverflow.com/questions/1909188/define-make-variable-at-rule-execution-time
+#
 getdate:
 	$(eval DATE := $(shell $(GIT) log -1 --format="format:%cd"))
 	$(eval MONTH := $(shell echo $(DATE) | $(CUT) -d' ' -f2))
+	$(info $$MONTH is ${MONTH})
+#	$(eval MONTH := $(shell if [ "${MONTH}" = "Jan" ]; then echo "January"; else echo ${MONTH}; fi ))
+#	$(eval MONTH := $(shell if [ "${MONTH}" = "Feb" ]; then echo "February"; else echo ${MONTH}; fi ))
+#	$(eval MONTH := $(shell if [ "${MONTH}" = "Mar" ]; then echo "March"; else echo ${MONTH}; fi ))
+#	$(eval MONTH := $(shell if [ "${MONTH}" = "Apr" ]; then echo "April"; else echo ${MONTH}; fi ))
+#	$(eval MONTH := $(shell if [ "${MONTH}" = "Jun" ]; then echo "June"; else echo ${MONTH}; fi ))
+	$(eval TESTMONTH := $(shell echo "${MONTH}" ))
+	$(info $$MONTH is ${MONTH})
+	$(info $$TESTMONTH is ${TESTMONTH})
+ifeq ($(MONTH),Jun)
+  $(info 2 - $$MONTH is ${MONTH})
+  $(eval MONTH := $(shell echo "June"))
+endif
 	$(eval DAY := $(shell echo $(DATE) | cut -d' ' -f3))
 	$(eval YEAR := $(shell echo $(DATE) | cut -d' ' -f5))
 	$(eval DATE := $(shell echo "$(MONTH) $(DAY), $(YEAR)"))
+
 
 #
 # Embed git version control number.
