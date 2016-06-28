@@ -18,7 +18,8 @@
 %% rcs is the package to display cvs revision info.
 %%\usepackage{rcs}
 \usepackage{fullpage}
-\usepackage{fancyvrb} 
+\usepackage{fancyvrb}
+\usepackage{fancyhdr}
 \usepackage{graphicx}
 \usepackage{figsize}
 \usepackage{calc}
@@ -234,6 +235,15 @@ pdfkeywords={FileXfer, file transfer jobs}
 \setcounter{bottomnumber}{50}
 
 
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{File Transfer Jobs}
+\fancyhead[RE,LO]{FileXfer}
+\fancyfoot[CE,CO]{\leftmark}
+\fancyfoot[LE,RO]{\thepage}
+
+
   %%
 %%%%%% Document.
   %%
@@ -334,6 +344,7 @@ pdfkeywords={FileXfer, file transfer jobs}
 \newpage
 \setcounter{secnumdepth}{2}
 \section{Introduction}
+\fancyhead[LE,RO]{Introduction}
 The FileXfer system...
 
 %% ========================= Design ==============================
@@ -346,6 +357,60 @@ The FileXfer system...
 %% ===================== Implementation  =========================
 \section{Implementation}
 \FIXME{Need data here...}
+
+%% ========================= Logging ===========================
+%% ========================= Logging ===========================
+\subsection{Logging}
+
+
+%% ================== Application Logging ======================
+%% ================== Application Logging ======================
+\subsubsection{Application Logging}
+The filexfer applications log to the \texttt{/var/log/filexfer}
+directory on \texttt{prod-prov4-cdr1.}\textbackslash\\
+\texttt{operations.gci.com}. The parent \texttt{filexfer} jobs
+log to \texttt{filexfer-get.log} and
+\texttt{filexfer-}\textbackslash\\
+\texttt{put.log}.
+The \texttt{jobmonitor} and \texttt{dataloader} applications
+log to \texttt{jobmonitor.log} and\\
+\texttt{dataloader.log}, The \texttt{filexfer} applications
+log to the \texttt{/var/log/filexfer} directory on
+\texttt{prod-prov4-cdr1.operations.gci.com}. The parent
+\texttt{filexfer} jobs
+log to \texttt{filexfer-get.}\textbackslash\\
+\texttt{log} and \texttt{filexfer-put.log}. The
+\texttt{jobmonitor} and \texttt{dataloader} applications log to\\
+\texttt{jobmonitor.log} and \texttt{dataloader.log}, respectively. Each file
+transfer job is executed as a child process and gets its own log file. The
+format is\\
+\texttt{filexfer-}$\{$\texttt{neName}$\}$\texttt{-}$\{$\texttt{idJob}$\}$\texttt{-}$\{$\texttt{get,put}$\}$\texttt{.log}.\\
+\\
+By default, the jobs log at the warn level.  Adjust the level to info to get a
+high-level view of the application's state.  Adjust log verbosity by modifying
+the appropriate config file in \texttt{/etc/filexfer}.  The changes will take
+effect after the next program execution.\\
+\\
+Errors are also logged to a database table which can be browsed in the
+filexfer web interface under the '\texttt{Logs \& Errors}' view.  This view
+includes messages logged at \texttt{warn}, \texttt{error}, and \texttt{fatal}
+severity.\footnote{\href{http://oss-wiki.operations.gci.com/dev/index.php/Usage_Collection\_Framework\_(filexfer)}{Usage Collection Framework (filexfer)}}
+
+
+%% ================= File Transfer Logging =====================
+%% ================= File Transfer Logging =====================
+\subsubsection{File Transfer Logging}
+Every file transfer is recorded in a database table. There are
+two reasons for this table: first, it tells \texttt{filexfer}
+hich files have already been transferred, and second, it
+provides an audit trail for SOX compliance. The table is
+\texttt{filexfer.logs} on
+\texttt{sadc-cdr-mysql1.operations.gci.com}. Use the
+\texttt{filexfer.joblogs} view to easily find logs by job name
+or network element ID.\\
+\\
+File transfer logs may also be viewed in the
+'\texttt{Logs \& Errors}' page of the web interface.\footnote{\href{http://oss-wiki.operations.gci.com/dev/index.php/Usage_Collection\_Framework\_(filexfer)}{Usage Collection Framework (filexfer)}}
 
 
 %% =========================== Test ==============================
@@ -403,59 +468,11 @@ executed.\footnote{\href{http://oss-wiki.operations.gci.com/dev/index.php/Schedu
     Timing}}
 
 
-%% ================== Application Logging ======================
-%% ================== Application Logging ======================
-\section{Application Logging}
-The filexfer applications log to the \texttt{/var/log/filexfer}
-directory on \texttt{prod-prov4-cdr1.}\textbackslash\\
-\texttt{operations.gci.com}. The parent \texttt{filexfer} jobs
-log to \texttt{filexfer-get.log} and
-\texttt{filexfer-}\textbackslash\\
-\texttt{put.log}.
-The \texttt{jobmonitor} and \texttt{dataloader} applications
-log to \texttt{jobmonitor.log} and\\
-\texttt{dataloader.log}, The \texttt{filexfer} applications
-log to the \texttt{/var/log/filexfer} directory on
-\texttt{prod-prov4-cdr1.operations.gci.com}. The parent
-\texttt{filexfer} jobs
-log to \texttt{filexfer-get.}\textbackslash\\
-\texttt{log} and \texttt{filexfer-put.log}. The
-\texttt{jobmonitor} and \texttt{dataloader} applications log to\\
-\texttt{jobmonitor.log} and \texttt{dataloader.log}, respectively. Each file
-transfer job is executed as a child process and gets its own log file. The
-format is\\
-\texttt{filexfer-}$\{$\texttt{neName}$\}$\texttt{-}$\{$\texttt{idJob}$\}$\texttt{-}$\{$\texttt{get,put}$\}$\texttt{.log}.\\
-\\
-By default, the jobs log at the warn level.  Adjust the level to info to get a
-high-level view of the application's state.  Adjust log verbosity by modifying
-the appropriate config file in \texttt{/etc/filexfer}.  The changes will take
-effect after the next program execution.\\
-\\
-Errors are also logged to a database table which can be browsed in the
-filexfer web interface under the '\texttt{Logs \& Errors}' view.  This view
-includes messages logged at \texttt{warn}, \texttt{error}, and \texttt{fatal}
-severity.\footnote{\href{http://oss-wiki.operations.gci.com/dev/index.php/Usage_Collection\_Framework\_(filexfer)}{Usage Collection Framework (filexfer)}}
-
-
-%% ================= File Transfer Logging =====================
-%% ================= File Transfer Logging =====================
-\section{File Transfer Logging}
-Every file transfer is recorded in a database table. There are
-two reasons for this table: first, it tells \texttt{filexfer}
-hich files have already been transferred, and second, it
-provides an audit trail for SOX compliance. The table is
-\texttt{filexfer.logs} on
-\texttt{sadc-cdr-mysql1.operations.gci.com}. Use the
-\texttt{filexfer.joblogs} view to easily find logs by job name
-or network element ID.\\
-\\
-File transfer logs may also be viewed in the
-'\texttt{Logs \& Errors}' page of the web interface.\footnote{\href{http://oss-wiki.operations.gci.com/dev/index.php/Usage_Collection\_Framework\_(filexfer)}{Usage Collection Framework (filexfer)}}
 
 
 %% ======================= Dataloader ==========================
 %% ======================= Dataloader ==========================
-\section{Dataloader}
+\subsection{Dataloader}
 Dataloader jobs are configured using the web interface at
 \texttt{nms.operations.gci.com/relevance}. Navigate to the
 ``\texttt{FileXfer}'' application and click the
