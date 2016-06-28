@@ -3,8 +3,6 @@ Created Mon Jun 27 09:24:36 AKDT 2016
 Copyright (C) 2016 by Raymond E. Marcil <marcilr@gmail.com>
 
 
-+++ Tue Jun 28 13:05:21 AKDT 2016 - Update document to numbered sections.
-
 +++ Tue Jun 28 13:05:21 AKDT 2016 - Add footer to every page with:
 Created from filexfer.tex by Raymond E. Marcil - July 1, 2016
 
@@ -31,3 +29,17 @@ o 7-characters of SHA-1
 o Created by user on date
 o Updated by user on date
 o ??? pages
+
+
+Complete
+========
+x Tue Jun 28 13:05:21 AKDT 2016 - Update document to numbered sections.
+Enabled section numbering with:  
+  \setcounter{secnumdepth}{2}
+  \section{Introduction}
+  The FileXfer system...
+
+It had been disabled by:
+  \setcounter{secnumdepth}{0}
+  \section{List of Definitions and Abbreviations}
+
