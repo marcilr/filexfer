@@ -58,6 +58,9 @@
 # Source for ifeq string comparision syntax
 # http://stackoverflow.com/questions/3728372/string-comparison-inside-makefile
 #
+# Usage Collection Framework (filexfer)
+# http://oss-wiki.operations.gci.com/dev/index.php/Usage_Collection_Framework_(filexfer)
+#
 BIBTEX = /usr/bin/bibtex
 CAT    = /bin/cat
 CUT    = /usr/bin/cut
