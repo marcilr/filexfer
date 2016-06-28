@@ -1,3 +1,17 @@
 TODO
 Created Mon Jun 27 09:24:36 AKDT 2016
 Copyright (C) 2016 by Raymond E. Marcil <marcilr@gmail.com>
+
+
++++ Tue Jun 28 09:12:16 AKDT 2016 - The title page and header/footer still
+needs more work.
+
+o The 7-characters of SHA-1 sum on the title page should really move to a 
+footer on subsequent pages.  Specifically I think the footer on subsequest
+pages should have:
+
+o latex document name (like filexfer.tex)
+o 7-characters of SHA-1
+o Created by user on date
+o Updated by user on date
+o ??? pages
