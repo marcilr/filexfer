@@ -347,6 +347,40 @@ scripts.\footnote{\href{http://oss-wiki.operations.gci.com/dev/index.php/Usage_C
     Collection Framework (filexfer)}}
 
 
+%% ============ Scheduling Usage Collection Jobs =================
+%% ============ Scheduling Usage Collection Jobs =================
+\subsection{Scheduling Usage Collection Jobs}
+Jobs are scheduled using a web interface at
+\texttt{nms.operations.gci.com/relevance}. Navigate to the
+``\texttt{FileXfer}'' application and click the
+``\texttt{File Transfer Jobs}'' link.  Job execution happens on
+\texttt{prod-prov4-cdr1.operations.gci.com}.  A cron job executes
+every minute from \texttt{/etc/cron.d/filexfer} to kick off the
+various \texttt{filexfer} scripts.\footnote{\href{http://oss-wiki.operations.gci.com/dev/index.php/Scheduling\_Usage\_Collection\_Jobs}{Scheduling Usage Collection Jobs}}
+
+
+%% =================== Job Timing ================================
+%% =================== Job Timing ================================
+\subsubsection{Job Timing}
+The parent \texttt{filexfer} script is responsible for spawning
+child processes for each job. Since a large number of jobs can be
+scheduled at any given interval, the parent process limits how
+many children can run concurrently.  As long as the limit is
+reached and more jobs need to be spawned, the parent process must
+stay alive. Since this may take longer than 1 minute, it is
+possible for filexfer to miss certain scheduling intervals.\\
+\\
+For example, if 500 jobs are scheduled to run at the top of every
+hour \texttt{(0 * * * *)} and the maximum child process limit is
+50, there is a good chance \texttt{filexfer} will not execute any
+jobs scheduled to run at 1 minute past the hour
+\texttt{(1 * * * *)}.  The best way to avoid this is to use
+0, 15, 30, or 45 in the minute field of the job schedule. These
+intervals are always
+executed.\footnote{\href{http://oss-wiki.operations.gci.com/dev/index.php/Scheduling\_Usage\_Collection\_Jobs}{Job
+    Timing}}
+
+
 %% ================== Application Logging ======================
 %% ================== Application Logging ======================
 \section{Application Logging}
