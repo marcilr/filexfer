@@ -31,6 +31,12 @@
 # Beware freaky syntax
 # http://stackoverflow.com/questions/2741708/makefile-contains-string
 #
+# Pretty Formats
+# git --distributed-even-if-your-workflow-isnt
+# Has "git log -l" placeholder details like '%ad' and '%cd'
+# for formatting date.
+# https://git-scm.com/docs/pretty-formats
+#
 # String comparison inside makefile
 # Source for ifeq string comparision syntax
 # http://stackoverflow.com/questions/3728372/string-comparison-inside-makefile
@@ -129,22 +135,126 @@ EMAIL:=$(shell $(GIT) show -s --format='%ae' $(SHA1))
 #
 # Generate datestamp password to tex.
 #
+# Get the committer date %cd
+# Did not find any way to get git format this nicely.
+# Formatted the old fashioned way.
+#
+# The git log -1 --format="format:%cd" returns a not so pretty
+# datestamp like:
+#   $ git log -1 --format="format:%cd"
+#   Mon Jun 27 14:11:53 2016 -0800
+#
+# The lengthly datestamp from "git log -1" needs a bit of cleanup
+# to get a cleaner datestamp like "June 27, 2016" for display on
+# the title page.
+#
+# Define make variable at rule execution time
+# http://stackoverflow.com/questions/1909188/define-make-variable-at-rule-execution-time
+#
 $(eval DATE := $(shell $(GIT) log -1 --format="format:%cd"))
 $(eval MONTH := $(shell echo $(DATE) | $(CUT) -d' ' -f2))
 $(info 1 - $$MONTH is [${MONTH}])
-#MONTH:=$(shell if [ "${MONTH}" = "Jun" ]; then echo "June"; fi )
-$(eval TESTMONTH := $(shell echo "${MONTH}" ))
-$(info $$TESTMONTH is [${TESTMONTH}])
 
+#
+# Following is a series of gnu ifeq statements used like a
+# case statement to make a 3-character to full month name
+# mapping:
+#   Jan   January
+#   Feb   February
+#   Mar   March
+#   Apr   april
+#   May   May     <=== Mapping not needed.  Good already
+#   Jun   June
+#   Jul   July
+#   Aug   August
+#   Sep   September
+#   Oct   October
+#   Nov   November
+#   Dec   December
+#
+# Ideally the "git log -1" would support the succint date
+# format via placeholder with the --date= option:
+#     '%ad': author date (format respects --date= option)
+#     '%cd': committer date (format respects --date= option)
+#
+# However, neither '%ad' or '%cd' appears so support the
+# --date= option.  Hence, manual mapping is required.
 #
 # Notes for ifeq:
 # o Does not work under a target.
 # o Does not work with tabs.
 # o *Must* be in this format.
 #
+
+# Check January
+ifeq ($(MONTH),Jan)
+  $(info 2 - $$MONTH is ${MONTH})
+  $(eval MONTH := $(shell echo "January"))
+endif
+
+# Check February
+ifeq ($(MONTH),Feb)
+  $(info 2 - $$MONTH is ${MONTH})
+  $(eval MONTH := $(shell echo "February"))
+endif
+
+# Check March
+ifeq ($(MONTH),Mar)
+  $(info 2 - $$MONTH is ${MONTH})
+  $(eval MONTH := $(shell echo "March"))
+endif
+
+# Check April
+ifeq ($(MONTH),Apr)
+  $(info 2 - $$MONTH is ${MONTH})
+  $(eval MONTH := $(shell echo "April"))
+endif# Check June
+
+#
+# No need to check 3-character May.
+# It is good to go.
+#
+
+# Check June
 ifeq ($(MONTH),Jun)
   $(info 2 - $$MONTH is ${MONTH})
   $(eval MONTH := $(shell echo "June"))
+endif
+
+# Check July
+ifeq ($(MONTH),Jul)
+  $(info 2 - $$MONTH is ${MONTH})
+  $(eval MONTH := $(shell echo "July"))
+endif
+
+# Check August
+ifeq ($(MONTH),Aug)
+  $(info 2 - $$MONTH is ${MONTH})
+  $(eval MONTH := $(shell echo "August"))
+endif
+
+# Check September
+ifeq ($(MONTH),Sep)
+  $(info 2 - $$MONTH is ${MONTH})
+  $(eval MONTH := $(shell echo "September"))
+endif
+
+# Check October
+ifeq ($(MONTH),Oct)
+  $(info 2 - $$MONTH is ${MONTH})
+  $(eval MONTH := $(shell echo "October"))
+endif
+
+# Check November
+ifeq ($(MONTH),Nov)
+  $(info 2 - $$MONTH is ${MONTH})
+  $(eval MONTH := $(shell echo "November"))
+endif
+
+# Check December
+ifeq ($(MONTH),Dec)
+  $(info 2 - $$MONTH is ${MONTH})
+  $(eval MONTH := $(shell echo "December"))
 endif
 
 $(info 3 - $$MONTH is [${MONTH}])
@@ -224,41 +334,6 @@ ${PS}: ${DVI}
 
 ${PDF}: ${PS}
 	$(PS2PDF) $(PS)
-
-#
-# Get the committer date %cd
-# Did not find any way to get git format this nicely.
-# Formatted the old fashioned way.
-#
-# The git log -1 --format="format:%cd" returns a not so pretty
-# datestamp like:
-#   $ git log -1 --format="format:%cd"
-#   Mon Jun 27 14:11:53 2016 -0800
-#
-# Needs a bit of cleanup to get June 27, 2016
-#
-# Define make variable at rule execution time
-# http://stackoverflow.com/questions/1909188/define-make-variable-at-rule-execution-time
-#
-getdate:
-	$(eval DATE := $(shell $(GIT) log -1 --format="format:%cd"))
-	$(eval MONTH := $(shell echo $(DATE) | $(CUT) -d' ' -f2))
-	$(info $$MONTH is ${MONTH})
-#	$(eval MONTH := $(shell if [ "${MONTH}" = "Jan" ]; then echo "January"; else echo ${MONTH}; fi ))
-#	$(eval MONTH := $(shell if [ "${MONTH}" = "Feb" ]; then echo "February"; else echo ${MONTH}; fi ))
-#	$(eval MONTH := $(shell if [ "${MONTH}" = "Mar" ]; then echo "March"; else echo ${MONTH}; fi ))
-#	$(eval MONTH := $(shell if [ "${MONTH}" = "Apr" ]; then echo "April"; else echo ${MONTH}; fi ))
-#	$(eval MONTH := $(shell if [ "${MONTH}" = "Jun" ]; then echo "June"; else echo ${MONTH}; fi ))
-	$(eval TESTMONTH := $(shell echo "${MONTH}" ))
-	$(info $$MONTH is ${MONTH})
-	$(info $$TESTMONTH is ${TESTMONTH})
-ifeq ($(MONTH),Jun)
-  $(info 2 - $$MONTH is ${MONTH})
-  $(eval MONTH := $(shell echo "June"))
-endif
-	$(eval DAY := $(shell echo $(DATE) | cut -d' ' -f3))
-	$(eval YEAR := $(shell echo $(DATE) | cut -d' ' -f5))
-	$(eval DATE := $(shell echo "$(MONTH) $(DAY), $(YEAR)"))
 
 
 #
