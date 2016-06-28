@@ -19,7 +19,11 @@
 %%\usepackage{rcs}
 \usepackage{fullpage}
 \usepackage{fancyvrb}
+
+%% Decorative lines on header and footer
+%% https://www.sharelatex.com/learn/Headers_and_footers
 \usepackage{fancyhdr}
+
 \usepackage{graphicx}
 \usepackage{figsize}
 \usepackage{calc}
@@ -235,14 +239,28 @@ pdfkeywords={FileXfer, file transfer jobs}
 \setcounter{bottomnumber}{50}
 
 
-
+%%
+%% Decorative lines on header and footer
+%% Headers and footers
+%% https://www.sharelatex.com/learn/Headers_and_footers
+%%
+%% E for even page
+%% O for odd page
+%% L for left side
+%% C for centered
+%% R for right side
+%%
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[LE,RO]{File Transfer Jobs}
+%%\fancyhead[CE,RO]{\leftmark}
 \fancyhead[RE,LO]{FileXfer}
-\fancyfoot[CE,CO]{\leftmark}
+%% Center like 6 OPERATION
+%%\fancyfoot[CE,CO]{\leftmark}
 \fancyfoot[LE,RO]{\thepage}
 
+%% FIXME: Need to get initial creation data and current branch here.
+\lfoot{Created from \texttt{\jobname.tex} (sha-1: \texttt{\GITAbrHash})\\
+  by \GITAuthorName \hspace{5pt}\texttt{$<$\GITAuthorEmail$>$}}
 
   %%
 %%%%%% Document.
@@ -265,8 +283,7 @@ pdfkeywords={FileXfer, file transfer jobs}
 %% Thore Husfelt
 %% https://thorehusfeldt.net/2011/05/13/including-git-revision-identifiers-in-latex/
 %%
-\date{Revision \GITRevision\hspace{7.5pt}(\GITAuthorDate)\\
-               \texttt{\GITAbrHash}}
+\date{Revision \GITRevision\hspace{7.5pt}(\GITAuthorDate)}
 
 % Set date to RCS revision date
 %%\date{Revision \RCSRevision
@@ -344,18 +361,22 @@ pdfkeywords={FileXfer, file transfer jobs}
 \newpage
 \setcounter{secnumdepth}{2}
 \section{Introduction}
-\fancyhead[LE,RO]{Introduction}
+\fancyhead[LE,RO]{INTRODUCTION}
 The FileXfer system...
 
 %% ========================= Design ==============================
 %% ========================= Design ==============================
+\newpage
 \section{Design}
+\fancyhead[LE,RO]{DESIGN}
 \FIXME{Need data here...}
 
 
 %% ===================== Implementation  =========================
 %% ===================== Implementation  =========================
+\newpage
 \section{Implementation}
+\fancyhead[LE,RO]{IMPLEMENTATION}
 \FIXME{Need data here...}
 
 %% ========================= Logging ===========================
@@ -415,20 +436,26 @@ File transfer logs may also be viewed in the
 
 %% =========================== Test ==============================
 %% =========================== Test ==============================
+\newpage
 \section{Test}
+\fancyhead[LE,RO]{TEST}
 \FIXME{Need data here...}
 
 
 %% ========================== Issues =============================
 %% ========================== Issues  ============================
+\newpage
 \section{Issues}
+\fancyhead[LE,RO]{ISSUES}
 \FIXME{Need data here...}
 
 
 %% ======================== Operation ============================
 %% ======================== Operation ============================
 %% ======================== Operation ============================
+\newpage
 \section{Operation}
+\fancyhead[LE,RO]{OPERATION}
 \FIXME{Need data here...}
 
 
@@ -485,6 +512,7 @@ minute as long as there are files in the load queue.\footnote{\href{http://oss-w
 %% ======================== Examples =============================
 \newpage
 \section{Examples}
+\fancyhead[LE,RO]{EXAMPLES}
 Series of useful \LaTeX\ markup. Need to break out to 
 separate examples.tex file.
 
@@ -826,7 +854,7 @@ gis/raster/
 %%
 \setcounter{secnumdepth}{0}
 \section{Appendix}
-
+\fancyhead[LE,RO]{APPENDIX}
 
 %% ========================= Source ==============================
 %% ========================= Source ==============================
