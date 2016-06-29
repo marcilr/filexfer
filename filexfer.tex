@@ -6,8 +6,15 @@
 %% 
 %% FileXfer - File Transfer Jobs
 %%
+%% Links
+%% =====
+%% Creating Flowcharts with TikZ
+%% ShareLaTeX Blog
+%% https://www.sharelatex.com/blog/2013/08/29/tikz-series-pt3.html
+%%
 
-  %%
+
+%%
 %%%%%% Preamble.
   %%
 
@@ -48,6 +55,13 @@
 \usepackage{booktabs}
 \usepackage[first,bottomafter]{draftcopy}
 \usepackage[numbib]{tocbibind}
+
+%%
+%% Creating Flowcharts with TikZ
+%% https://www.sharelatex.com/blog/2013/08/29/tikz-series-pt3.html
+%%
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
 
 \usepackage{amssymb}              %% AMS Symbols, used for \checkmark
 \usepackage{multicol}
@@ -238,6 +252,49 @@ pdfkeywords={FileXfer, file transfer jobs}
 \setcounter{topnumber}{50}
 \setcounter{bottomnumber}{50}
 
+%%
+%% The tikzstyle command
+%% Now before we start the document we need to define the basic components of
+%% a flow chart.  To do this we use the \tikzstyle command.  First let’s
+%% define the block we’re going to use for start and stop blocks.  We’ll name
+%% it ‘startstop’ using curly brackets immediately following the command, then
+%% we add an equals sign before a set of square brackets. In the square
+%% brackets we enter all the formatting information. For this block we’ll
+%% specify a rectangle with rounded corners.  We’ll give it a minimum width of
+%% 3cm and a minimum height of 1cm.  We’ll also ensure the text gets centred
+%% and we’ll set both a draw and a fill colour.  In this example we’ve set the
+%% fill colour to a colour that is 30% red mixed with 70% white.
+%% --sharelatex.com/
+%%
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm,
+  minimum height=1cm,text centered, draw=black, fill=red!30]
+
+%%
+%% Next we’ll specify an input or output box. This time we want the block to
+%% be a parallelogram.  To achieve this we ask for a trapezium and then alter
+%% the angles. The rest is very similar.
+%% --sharelatex.com/
+%%
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right
+  angle=110, minimum width=3cm, minimum height=1cm, text centered, draw=black,
+  fill=blue!30]
+
+%%
+%% Next we’ll add a TikZ style for process blocks using a rectangle and a
+%% style for decision blocks using a diamond.
+%% --sharelatex.com/
+%%
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=orange!30]
+\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text
+  centered, draw=black, fill=green!30]
+
+%%
+%% Finally we’ll define a style for the arrows. For this we set the line
+%% thickness to ‘thick’, add an arrow head and specify the stealth arrow head.
+%% --sharelatex.com/
+%%
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
 
 %%
 %% Decorative lines on header and footer
@@ -262,6 +319,8 @@ pdfkeywords={FileXfer, file transfer jobs}
 \lfoot{Created \GITAuthorDate\hspace{5pt}from \texttt{\jobname.tex}
   (sha-1: \texttt{\GITAbrHash})\\
   by \GITAuthorName \hspace{5pt}\texttt{$<$\GITAuthorEmail$>$}}
+
+
 
   %%
 %%%%%% Document.
@@ -299,12 +358,14 @@ pdfkeywords={FileXfer, file transfer jobs}
 %%\rhead{Revision \svnInfoRevision\\
 %%\svnInfoLongDate}
 
+
 %% ===================== Document ======================
 %% ===================== Document ======================
 %% ===================== Document ======================
 \begin{document}
 
 \maketitle
+
 
 %% ===================== Abstract ======================
 %% ===================== Abstract ======================
@@ -369,12 +430,63 @@ pdfkeywords={FileXfer, file transfer jobs}
 \fancyhead[LE,RO]{INTRODUCTION}
 The FileXfer system...
 
+
 %% ========================= Design ==============================
 %% ========================= Design ==============================
 \newpage
 \section{Design}
 \fancyhead[LE,RO]{DESIGN}
 \FIXME{Need data here...}
+
+%%
+%% TikZ flowchart
+%% Plenty of notes on creating a TikZ flowchart.
+%% Notes on making adjustable size boxes for arbitrary amount of text that I
+%% did not use in this exmaple.
+%% ShareLaTeX Blog
+%% https://www.sharelatex.com/blog/2013/08/29/tikz-series-pt3.html
+%% 
+\vspace{2cm}
+\begin{tikzpicture}[node distance=2cm]
+
+  <TikZ code>
+
+  %% Start block
+  \node (start) [startstop] {Start};
+  \node (in1) [io, below of=start] {Input};
+  \node (pro1) [process, below of=in1] {Process 1};
+%%  \node (dec1) [decision, below of=pro1] {Decision 1};
+  \node (dec1) [decision, below of=pro1, yshift=-0.5cm] {Decision 1};
+
+  \node (pro2a) [process, below of=dec1, yshift=-0.5cm] {Process 2a};
+  \node (pro2b) [process, right of=dec1, xshift=2cm] {Process 2b};
+  \node (out1) [io, below of=pro2a] {Output};
+  \node (stop) [startstop, below of=out1] {Stop};
+
+
+  \draw [arrow] (start) -- (in1);
+  \draw [arrow] (in1) -- (pro1);
+  \draw [arrow] (pro1) -- (dec1);
+  \draw [arrow] (dec1) -- (pro2a);
+  \draw [arrow] (dec1) -- (pro2b);
+
+  \draw [arrow] (dec1) -- node[anchor=east] {yes} (pro2a);
+  \draw [arrow] (dec1) -- node[anchor=south] {no} (pro2b);
+
+  %% Makes diagonal line
+%%  \draw [arrow] (pro2b) -- (pro1);
+
+  %% Make the arrow go in a vertical direction before going in a horizontal
+  %% direction.
+  \draw [arrow] (pro2b) |- (pro1);
+  
+  \draw [arrow] (pro2a) -- (out1);
+  \draw [arrow] (out1) -- (stop);
+  
+\end{tikzpicture}
+
+\vspace{10pt}
+\noindent \FIXME{Need to customize flowchart for FileXfer above.}
 
 
 %% ===================== Implementation  =========================
