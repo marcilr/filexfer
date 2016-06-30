@@ -35,6 +35,9 @@
 \usepackage{figsize}
 \usepackage{calc}
 
+%% Tables that span multiple pages
+\usepackage{longtable}
+
 %%
 %% enumitem – Control layout of itemize, enumerate, description
 %% https://www.ctan.org/pkg/enumitem
@@ -990,6 +993,60 @@ Code from
 
 \vspace{20pt}
 \noindent\FIXME{Need data here}
+
+\begin{longtable}[l]{ll}
+    \textbf{Directory} & \textbf{File(s)} \\
+    \hline
+    \texttt{/etc/filexfer/}&\texttt{*.conf}\\
+    \texttt{/usr/bin/}&\texttt{filexfer-dataloader}\\
+    &\texttt{\textbf{filexfer-dataloader.plx}}\\
+    &\texttt{filexfer-dataloader.plx.mbak}\\
+    &\texttt{filexfer-epg-dataloader.plx}\\
+    &\texttt{filexfer-filearchive}\\
+    &\texttt{filexfer-filearchive.sh}\\
+    &\texttt{filexfer-fileunarchive}\\
+    &\texttt{filexfer-fileunarchive.sh}\\
+    &\texttt{filexfer-jobmonitor}\\
+    &\texttt{\textbf{filexfer-jobmonitor.plx}}\\
+    &\texttt{\textbf{filexfer.plx}}\\
+    \texttt{/usr/lib/filexfer}/&\texttt{*.gz, *.sh, *.plx}\\
+    &\texttt{ExtractCarrierTurboZoneUsage*}\\
+    \texttt{/usr/share/filexfer}/&\texttt{filexfer.changelog-*.xml}\\
+    &\texttt{filexfer.changelog-master.xml}\\
+    &\texttt{liquibase.sh}\\
+    &\texttt{.gnupg/pubring.gpg}\\
+    &\texttt{.gnupg/random\_seed}\\
+    \texttt{/var/cache/yum/build/packages/}&\texttt{filexfer-0.52-1.el5.centos.noarch.rpm}\\
+    \texttt{/var/lib/filexfer/}
+    &\texttt{dataloader.kch}\\
+    &\texttt{dataloader\_temp.kch}\\
+    &\texttt{filexfer-aaa01-13-get.kch}\\
+    &\texttt{...}\\
+    &\texttt{filexfer-wps01-706-get.kch}\\
+    &\texttt{filexfer.kch}\\
+    &\texttt{jobmonitor-mailstat.kch}\\
+    &\texttt{jobmonitor.kch}\\
+    \texttt{/var/log/filexfer}&\texttt{*.log}\\
+    &\texttt{ExtractCarrierTurboZoneUsage\_ACS.log}\\
+    &\texttt{archive}\\
+    &\texttt{convert-wps-om-counters-report-part2.log}\\
+    &\texttt{convert-wps-om-counters-report.log}\\
+    &\texttt{\textbf{dataloader.log}}\\
+    &\texttt{dataloader\_temp.log}\\
+    &\texttt{dataloadinsert.log}\\
+    &\texttt{datarecovery.log}\\
+    &\texttt{epg-dataloader.log}\\
+    &\texttt{ericsson-oss-rl-reports-preprocess.log}\\
+    &\texttt{ericsson-oss-sts-reports-preprocess.log}\\
+    &\texttt{filearchive.log}\\
+    &\texttt{filexfer-aaa01-13-get.log}\\
+    &\texttt{filexfer-aaa01-14-put.log}\\
+    &\texttt{...}\\
+    &\texttt{/var/log/filexfer/filexfer-wps01-706-get.log}\\
+    \hline
+    \caption{FileXfer directories and files on \texttt{prod-prov4-cdr1}.}
+    \label{longtable}
+\end{longtable}
 
 
 %% ========================== Links ==============================
