@@ -35,6 +35,18 @@
 \usepackage{figsize}
 \usepackage{calc}
 
+%%
+%% Use got bold \texttt
+%% \texttt{TT Text \textbf{Bold TT Text}}
+%%     or
+%% \texttt{\textbf{foo}}
+%%
+%% How do I get \texttt with bold face in LaTeX?
+%% http://tex.stackexchange.com/questions/215482/how-do-i-get-texttt-with-bold-face-in-latex
+%%
+\usepackage{bold-extra}
+
+
 %% Tables that span multiple pages
 \usepackage{longtable}
 
@@ -1014,7 +1026,7 @@ Code from
 \hline \multicolumn{2}{|r|}{{Continued on next page}} \\ \hline
 \endfoot
 
-%% This was double horizontal lines at end of table.
+%% This was double horizontal lines at end of table (removed)
 %%\hline \hline
 \endlastfoot
 
