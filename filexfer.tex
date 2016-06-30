@@ -14,7 +14,7 @@
 %%
 
 
-%%
+  %%
 %%%%%% Preamble.
   %%
 
@@ -46,6 +46,7 @@
 %%
 \usepackage{bold-extra}
 
+\usepackage{verbatim}
 
 %% Tables that span multiple pages
 \usepackage{longtable}
@@ -997,11 +998,33 @@ gis/raster/
 %% ========================= Source ==============================
 %% ========================= Source ==============================
 \subsection{Source}
-Code from
-\texttt{prod-prov4-cdr1}\footnote{\texttt{prod-prov4-cdr1.operations.gci.com}
+There are 3 primary FileXfer \texttt{perl} scripts on
+\texttt{prod-prov4-cdr1}:\footnote{\texttt{prod-prov4-cdr1.operations.gci.com}
   (\texttt{192.168.161.47}, NATed IP: \texttt{66.223.199.228}), data including
   CDRs and such under \texttt{/data/usage/} ---
   Network Services, OSS.}
+
+
+\begin{table}[htb]
+\begin{tabular}{|p{.35\textwidth}|p{.17\textwidth}|p{.50\textwidth}|}\hline 
+\textbf{File name}&\textbf{Attributes}&\textbf{Description}\\ 
+\hline
+\texttt{filexfer.plx}&181 lines&File transfer jobs\\
+\texttt{filexfer-dataloader.plx}&132 lines&Data loader\\
+\texttt{filexfer-jobmonitor.plx}&132 lines&Job Monitor\\
+\hline
+\end{tabular}
+\caption{FileXfer \texttt{perl} scripts on \texttt{prod-prov4-cdr1}}
+\label{table:FileXfer_scripts_on_prod-prov4-cdr1}
+\end{table}
+
+
+%% ====================== filexfer.plx ===========================
+%% ====================== filexfer.plx ===========================
+\newpage
+\subsection{\texttt{filexfer.plx} --- File transfer jobs}
+\verbatiminput{./filexfer.plx}
+
 
 \vspace{20pt}
 \noindent\FIXME{Need data here}
