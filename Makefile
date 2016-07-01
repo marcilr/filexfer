@@ -406,6 +406,6 @@ ${BZ2}: cycle
 # Build distribution tarball
 dist: ${BZ2}
 	$(RM) -f $(LOG) $(LOF) $(AUX) $(TOC) $(DVI) $(PS)
-	$(RM) -f $(BBL) $(BLG) $(LOT) $(OUT) $(VC)
+	$(RM) -f $(BBL) $(BLG) $(LOT) $(OUT)
 	$(RM) -rf $(BASENAME)
 	$(RM) -f *.aux *.dvi *.lof *.log *.ps *.tmp
