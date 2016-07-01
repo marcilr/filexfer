@@ -3,6 +3,10 @@ Created Mon Jun 27 09:24:36 AKDT 2016
 by Raymond E. Marcil <rmarci@gci.com>
 
 
++++ Fri Jul  1 09:39:59 AKDT 2016 - Added suibdirecties to LaTex build path
+to alleviate input statements like:
+  \input{implementation/configuration.tex}
+
 +++ Thu Jun 30 16:40:21 AKDT 2016 - Wrap source code in Appendix.
 
 +++ Tue Jun 28 13:05:21 AKDT 2016 - Add footer to every page with:
