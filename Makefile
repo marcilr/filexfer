@@ -1,6 +1,6 @@
 # -*- Mode: Makefile -*-
 # Created Thu Aug  4 09:03:50 AKDT 2011
-# by Raymond E. Marcil <marcilr@gmail.com>
+# by Raymond E. Marcil <rmarcil@gci.com>
 #
 # Makefile for a single-file LaTeX document plus optional BibTeX file.
 #
