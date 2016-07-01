@@ -78,7 +78,7 @@ TR     = /usr/bin/tr
 
 # Determine LaTeX document basename dynamically.
 # Rather than hardcoding.
-BASENAME = $(shell ls *.tex |  grep -v vc | sed 's/.tex//g')
+BASENAME = $(shell ls *.tex | grep -v abstract | grep -v vc | sed 's/.tex//g')
 # BASENAME = bsdinspect-database
 
 
