@@ -322,7 +322,7 @@ clean: mostly-clean
 # and files other than bz2 and pdf.
 #
 mostly-clean:
-	$(RM) -f $(LOG) $(LOF) $(AUX) $(TOC) $(DVI) $(PS) $(VC)
+	$(RM) -f $(LOG) $(LOF) $(AUX) $(TOC) $(DVI) $(PS)
 	$(RM) -f $(BBL) $(BLG) $(LOT) $(OUT)
 	$(RM) -rf $(BASENAME)
 	$(RM) -f *.aux *.dvi *.lof *.log *.ps *.tmp
