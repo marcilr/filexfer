@@ -299,11 +299,11 @@ $(eval DATE := $(shell echo "$(MONTH) $(DAY), $(YEAR)"))
 #
 # If REVISION is defined then include in distribution filename.
 #
-#ifdef REVISION
-#	BZ2 = $(BASENAME)-$(REVISION).tar.bz2
-#else
-#	BZ2 = $(BASENAME).tar.bz2
-#endif
+ifdef REVISION
+	BZ2 = $(BASENAME)-$(REVISION).tar.bz2
+else
+	BZ2 = $(BASENAME).tar.bz2
+endif
 
 
 # Identity non-file targets
@@ -389,23 +389,11 @@ ${VC}: .git/logs/HEAD
 #
 # \\gdef\\GITAuthorDate{%ad}\
 
-#
+
 # Build distribution tarball
-# The leading slash in "--exclude /$(BASENAME)" means to exclude from the
-# working directory only so the $(BASENAME) further down in the hierarchy
-# will be included.
-# 
-# How to exclude a folder from rsync
-# http://askubuntu.com/questions/349613/how-to-exclude-a-folder-from-rsync
-#
 ${BZ2}: mostly-clean
-	$(MKDIR) $(BASENAME)
-	$(RSYNC) -va --stats --progress * --exclude /$(BASENAME) $(BASENAME)
-	$(TAR) -cvjpf $(BZ2) $(BASENAME)
+	$(TAR) -cvjpf $(BZ2) *
+
 
 # Build distribution tarball
 dist: ${BZ2}
-	$(RM) -f $(LOG) $(LOF) $(AUX) $(TOC) $(DVI) $(PS)
-	$(RM) -f $(BBL) $(BLG) $(LOT) $(OUT)
-	$(RM) -rf $(BASENAME)
-	$(RM) -f *.aux *.dvi *.lof *.log *.ps *.tmp
