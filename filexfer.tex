@@ -745,7 +745,12 @@ There are 3 primary FileXfer \texttt{perl} scripts on
 %% http://www.tex.ac.uk/FAQ-verbfile.html
 %%
 %%\verbatiminput{./filexfer.plx}
-\lstset{numbers=left}
+%%\lstset{numbers=left}
+\lstset{
+    numbers=left,
+    breaklines=true,
+    postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
+}
 \lstinputlisting{./filexfer.plx}
 
 
@@ -758,7 +763,17 @@ There are 3 primary FileXfer \texttt{perl} scripts on
 
 \subsubsection{\texttt{filexfer-jobmonitor.plx} --- Job monitor}
 %%\verbatiminput{./filexfer-jobmonitor.plx}
-\lstset{numbers=left}
+
+%%
+%% lstlisting line wrapping
+%% Great stuff.
+%% http://tex.stackexchange.com/questions/116534/lstlisting-line-wrapping
+%%
+\lstset{
+    numbers=left,
+    breaklines=true,
+    postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
+}
 \lstinputlisting{./filexfer-jobmonitor.plx}
 
 
@@ -771,7 +786,11 @@ There are 3 primary FileXfer \texttt{perl} scripts on
 
 \subsubsection{\texttt{filexfer-dataloader.plx} --- Data Loader}
 %%\verbatiminput{./filexfer-dataloader.plx}
-\lstset{numbers=left}
+\lstset{
+    numbers=left,
+    breaklines=true,
+    postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
+}
 \lstinputlisting{./filexfer-dataloader.plx}
 
 
