@@ -173,7 +173,7 @@ EMAIL:=$(shell $(GIT) show -s --format='%ae' $(SHA1))
 #
 $(eval DATE := $(shell $(GIT) log -1 --format="format:%cd"))
 $(eval MONTH := $(shell echo $(DATE) | $(CUT) -d' ' -f2))
-$(info 1 - $$MONTH is [${MONTH}])
+#$(info 1 - $$MONTH is [${MONTH}])
 
 #
 # Following is a series of gnu ifeq statements used like a
@@ -208,25 +208,25 @@ $(info 1 - $$MONTH is [${MONTH}])
 
 # Check January
 ifeq ($(MONTH),Jan)
-  $(info 2 - $$MONTH is ${MONTH})
+#  $(info 2 - $$MONTH is ${MONTH})
   $(eval MONTH := $(shell echo "January"))
 endif
 
 # Check February
 ifeq ($(MONTH),Feb)
-  $(info 2 - $$MONTH is ${MONTH})
+#  $(info 2 - $$MONTH is ${MONTH})
   $(eval MONTH := $(shell echo "February"))
 endif
 
 # Check March
 ifeq ($(MONTH),Mar)
-  $(info 2 - $$MONTH is ${MONTH})
+#  $(info 2 - $$MONTH is ${MONTH})
   $(eval MONTH := $(shell echo "March"))
 endif
 
 # Check April
 ifeq ($(MONTH),Apr)
-  $(info 2 - $$MONTH is ${MONTH})
+#  $(info 2 - $$MONTH is ${MONTH})
   $(eval MONTH := $(shell echo "April"))
 endif# Check June
 
@@ -237,47 +237,47 @@ endif# Check June
 
 # Check June
 ifeq ($(MONTH),Jun)
-  $(info 2 - $$MONTH is ${MONTH})
+#  $(info 2 - $$MONTH is ${MONTH})
   $(eval MONTH := $(shell echo "June"))
 endif
 
 # Check July
 ifeq ($(MONTH),Jul)
-  $(info 2 - $$MONTH is ${MONTH})
+#  $(info 2 - $$MONTH is ${MONTH})
   $(eval MONTH := $(shell echo "July"))
 endif
 
 # Check August
 ifeq ($(MONTH),Aug)
-  $(info 2 - $$MONTH is ${MONTH})
+#  $(info 2 - $$MONTH is ${MONTH})
   $(eval MONTH := $(shell echo "August"))
 endif
 
 # Check September
 ifeq ($(MONTH),Sep)
-  $(info 2 - $$MONTH is ${MONTH})
+#  $(info 2 - $$MONTH is ${MONTH})
   $(eval MONTH := $(shell echo "September"))
 endif
 
 # Check October
 ifeq ($(MONTH),Oct)
-  $(info 2 - $$MONTH is ${MONTH})
+#  $(info 2 - $$MONTH is ${MONTH})
   $(eval MONTH := $(shell echo "October"))
 endif
 
 # Check November
 ifeq ($(MONTH),Nov)
-  $(info 2 - $$MONTH is ${MONTH})
+#  $(info 2 - $$MONTH is ${MONTH})
   $(eval MONTH := $(shell echo "November"))
 endif
 
 # Check December
 ifeq ($(MONTH),Dec)
-  $(info 2 - $$MONTH is ${MONTH})
+#  $(info 2 - $$MONTH is ${MONTH})
   $(eval MONTH := $(shell echo "December"))
 endif
 
-$(info 3 - $$MONTH is [${MONTH}])
+#$(info 3 - $$MONTH is [${MONTH}])
 $(eval DAY := $(shell echo $(DATE) | cut -d' ' -f3))
 $(eval YEAR := $(shell echo $(DATE) | cut -d' ' -f5))
 $(eval DATE := $(shell echo "$(MONTH) $(DAY), $(YEAR)"))
