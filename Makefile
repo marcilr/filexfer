@@ -76,9 +76,16 @@ RSYNC  = /usr/bin/rsync
 TAR    = /bin/tar
 TR     = /usr/bin/tr
 
+#
 # Determine LaTeX document basename dynamically.
 # Rather than hardcoding.
-BASENAME = $(shell ls *.tex | grep -v abstract | grep -v vc | sed 's/.tex//g')
+#
+# Excluding several auxillary tex from search for basename:
+#   abstract - abstract.tex
+#   abbr     - list-of-abbreviations.tex
+#   vc       - filexfer-vc.tex (git metadata)
+#
+BASENAME = $(shell ls *.tex | grep -v abstract | grep -v abbr | grep -v vc | sed 's/.tex//g')
 # BASENAME = bsdinspect-database
 
 
