@@ -1,6 +1,6 @@
 links.txt
 Created Mon Jun 27 09:25:16 AKDT 2016
-Copyright (C) 2016 by Raymond E. Marcil <marcilr@gmail.com>
+by Raymond E. Marcil <rmarcil@gci.com>
 
 
 FileXfer related links
