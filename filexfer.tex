@@ -48,6 +48,12 @@
 
 \usepackage{verbatim}
 
+%%
+%% LaTeX/Source Code Listings
+%% https://en.wikibooks.org/wiki/LaTeX/Source_Code_Listings
+%%
+\usepackage{listings}
+
 %% Tables that span multiple pages
 \usepackage{longtable}
 
@@ -1040,7 +1046,9 @@ There are 3 primary FileXfer \texttt{perl} scripts on
 %% Including a file verbatim in LaTeX
 %% http://www.tex.ac.uk/FAQ-verbfile.html
 %%
-\verbatiminput{./filexfer.plx}
+%%\verbatiminput{./filexfer.plx}
+\lstset{numbers=left}
+\lstinputlisting{./filexfer.plx}
 
 
 %% ================ filexfer-jobmonitor.plx ======================
@@ -1050,6 +1058,12 @@ There are 3 primary FileXfer \texttt{perl} scripts on
 \fancyhead[CE,CO]{Job Monitor}
 \fancyhead[LE,RO]{APPENDIX}
 
+\subsection{\texttt{filexfer-jobmonitor.plx} --- Job monitor}
+%%\verbatiminput{./filexfer-jobmonitor.plx}
+\lstset{numbers=left}
+\lstinputlisting{./filexfer-jobmonitor.plx}
+
+
 %% ================ filexfer-dataloader.plx ======================
 %% ================ filexfer-dataloader.plx ======================
 \newpage
@@ -1057,8 +1071,11 @@ There are 3 primary FileXfer \texttt{perl} scripts on
 \fancyhead[CE,CO]{Data Loader}
 \fancyhead[LE,RO]{APPENDIX}
 
-\subsection{\texttt{filexfer-jobmonitor.plx} --- Job monitor}
-\verbatiminput{./filexfer-jobmonitor.plx}
+\subsection{\texttt{filexfer-dataloader.plx --- Data Loader}}
+%%\verbatiminput{./filexfer-dataloader.plx}
+\lstset{numbers=left}
+\lstinputlisting{./filexfer-dataloader.plx}
+
 
 \vspace{20pt}
 \noindent\FIXME{Need data here}
