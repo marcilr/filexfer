@@ -398,7 +398,7 @@ ${VC}: .git/logs/HEAD
 # How to exclude a folder from rsync
 # http://askubuntu.com/questions/349613/how-to-exclude-a-folder-from-rsync
 #
-${BZ2}: cycle
+${BZ2}: mostly-clean
 	$(MKDIR) $(BASENAME)
 	$(RSYNC) -va --stats --progress * --exclude /$(BASENAME) $(BASENAME)
 	$(TAR) -cvjpf $(BZ2) $(BASENAME)
