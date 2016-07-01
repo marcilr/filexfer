@@ -516,6 +516,7 @@ The FileXfer system...
 %% ========================= Schema ============================
 %% ========================= Schema ============================
 %% ========================= Schema ============================
+\newpage
 \section{Schema}
 
 
@@ -528,23 +529,24 @@ The FileXfer system...
 \FIXME{Need data here...}
 
 
-%% =========================== Test ==============================
-%% =========================== Test ==============================
-\newpage
-\subsection{Test}
-\fancyhead[LE,RO]{TEST}
+%% ============== FileXfer - File Transfer Jobs ==================
+%% ============== FileXfer - File Transfer Jobs ==================
+\subsection{File Transfer Jobs}
 \FIXME{Need data here...}
 
 
-%% ========================== Issues =============================
-%% ========================== Issues  ============================
-\newpage
-\subsection{Issues}
-\fancyhead[LE,RO]{ISSUES}
+%% ======================= Job Monitor ==========================
+%% ======================= Job Monitor ==========================
+\subsection{Job Monitor}
 \FIXME{Need data here...}
 
 
-%% ========================= Logging ===========================
+%% ======================== Data Loader ==========================
+%% ======================== Data Loader ==========================
+\subsection{Data Loader}
+\FIXME{Need data here...}
+
+
 %% ========================= Logging ===========================
 %% ========================= Logging ===========================
 \subsection{Logging}
@@ -597,7 +599,26 @@ provides an audit trail for SOX compliance. The table is
 or network element ID.\\
 \\
 File transfer logs may also be viewed in the
-'\texttt{Logs \& Errors}' page of the web interface.\footnote{\href{http://oss-wiki.operations.gci.com/dev/index.php/Usage_Collection\_Framework\_(filexfer)}{Usage Collection Framework (filexfer)}}
+'\texttt{Logs \& Errors}' page of the web
+interface.\footnote{\href{http://oss-wiki.operations.gci.com/dev/index.php/Usage\_Collection\_Framework\_(filexfer)}{Usage
+    Collection Framework (filexfer)}}
+
+
+%% =========================== Test ==============================
+%% =========================== Test ==============================
+\newpage
+\subsection{Test}
+\fancyhead[LE,RO]{TEST}
+\FIXME{Need data here...}
+
+
+%% ========================== Issues =============================
+%% ========================== Issues  ============================
+\newpage
+\subsection{Issues}
+\fancyhead[LE,RO]{ISSUES}
+\FIXME{Need data here...}
+
 
 
 %% ======================== Operation ============================
@@ -658,336 +679,6 @@ minute as long as there are files in the load queue.\footnote{\href{http://oss-w
 
 
 
-%% ======================== Examples =============================
-%% ======================== Examples =============================
-\newpage
-\section{Examples}
-\fancyhead[LE,RO]{EXAMPLES}
-Series of useful \LaTeX\ markup. Need to break out to 
-separate examples.tex file.
-
-\subsection{Escaping $<$ and $>$ Symbols}
-To get \$$<$\$ or \$$>$\$ just wrap the symbols in \$ for math mode.
-
-\subsection{Enumerate}
-\begin{enumerate}
-  \item{DNR} - Alaska State Department of Natural Resources
-    \begin{itemize*}
-      \item{HI} - Historical Index, not maintained since 1982
-      \item{LE} - Land Estate, maintained by SGU
-      \item{ME} - Mineral Estate, maintaind by SGU
-    \end{itemize*}
-
-  \item{Alaska State Surveys}
-    \begin{itemize*}
-      \item{ASBLT} - As-Built Survey
-      \item{ASCS} - Cadastral Survey
-    \end{itemize*}
-\end{enumerate}
-
-
-%% ======================= Comments =======================
-%% ======================= Comments =======================
-\subsection{Comments}
-\begin{center}
-\framebox{
-\begin{minipage}[t]{0.9\textwidth}
-\cmd{COMMENTS} Comment --- \emph{Sean Weems, Spring 2003}\\
-We should get the \cmd{COMMENTS} column searchable via the 
-landrecords application before we do much anything else -- shouldn't
-be too hard.
-\end{minipage}
-}
-\end{center}
-
-\begin{center}
-\framebox{
-\begin{minipage}[t]{0.9\textwidth}
-\emph{Errata: Plats spanning multiple sections}\\
-A few anomalies can be observed in the \cmd{AKPLATS}
-table. Specifically plats exist that span multiple sections. 
-Since the table only has a single column, \cmd{SCODE}, 
-that accepts a single section code, SGU (Status
-Graphics Unit) has handled this problem by entering multiple 
-rows in the table, each with a different section that point to
-the same plat or file. Multiple section plats are indicated by  setting 
-the \cmd{TCODE} column to the value \cmd{37}, and making an 
-appropriate notation like \emph{Section 24-25-26-27} in the 
-\cmd{REMARKS} column.\\
-\FIXME{Perhaps the \cmd{SCODE} column should accept an array of sections?}
-
-\end{minipage}
-}
-\end{center}
-
-
-%% ====================== Footnotes ======================
-%% ====================== Footnotes ======================
-\clearpage
-\newpage
-\subsection{Footnotes}
-See my
-footnote\footnote{\href{http://www.google.com/search?q=latex+footnotes}{Search}
-google for footnotes.}
-generated with:
-
-\begin{verbatim}
-  \footnote{\href{http://www.google.com/search?q=latex+footnotes}
-  {Search google for footnotes.}}
-\end{verbatim}
-
-\noindent GoogleGuide --- Linking to Search
-Results.\footnote{GoogleGuide --- \href{http://www.googleguide.com/linking.html}{Linking to Search Results.}}
-
-
-%% ====================== Hyperlinks ======================
-%% ====================== Hyperlinks ======================
-\subsection{Hyperlinks}
-Use $\backslash$href\{\} to generate hyperlinks:
-
-\begin{verbatim}
-  \href{http://www.google.com}{Google}}
-\end{verbatim}
-
-\noindent Yields: \href{http://www.google.com}{Google}
-
-
-%% ================ Table Examples ================
-%% ================ Table Examples ================
-\subsection{Table Examples}
-\begin{table}[htb]
-\begin{tabular}{|p{.25\textwidth}|p{.20\textwidth}|p{.47\textwidth}|}\hline 
-Column Name&Type&Description\\ 
-\hline
-EQS&VARCHAR2(1)&!NULL map shows village selections\\
-ITM\_COL&VARCHAR2(1)&USGS ITM column: 1-6\\
-ITM\_ROW&VARCHAR2(1)&USGS ITM row: A-E\\
-QMQ\_ABBR\_DNR&VARCHAR2(3)&Three character DNR abbreviation for the QMQ\\
-RASTER\_FILENAME&VARCHAR2(50)&Physical path to file\\
-RASTER\_PATHNAME&VARCHAR2(50)&URL path to PDF of map\\
-SCODE&VARCHAR2(2)&Supplement map code: 1,2,3,...\\
-COMMENTS&VARCHAR2(256)&Plat comments\\
-\hline
-\end{tabular}
-\caption {\cmd{EASEMENTS\_17B} Table}
-\label{table:easements_17b}
-\end{table}
-
-%% A simple table example
-%% The htb attribute attempts to inline the table or figure
-%% where you put it in the document
-\begin{table}[htb]
-\begin{center}
-\begin{tabular*}{\textwidth}{@{}p{.25\textwidth}@{}p{.75\textwidth}}
-\hline
-\hline\\[-2.5ex]
-XML element&Descripton\\
-\hline
-\hline\\[-1.5ex]   %% Trick to add whitespace after horizontal line
-FNUM&US Survey file number\\ 
-MERIDIAN&BLM meridian code\\
-&\hspace{10pt}12 = Copper River\\
-&\hspace{10pt}13 = Fairbanks\\
-&\hspace{10pt}28 = Seward\\
-&\hspace{10pt}44 = Kateel\\
-&\hspace{10pt}45 = Umiat\\
-TOWNSHIP&Five character Township code\\
-RANGE&Five character Range code\\
-PAGE&Survey page number 1,2,3,...\\
-FILENAME&Relative path to file in direcory\\[1.5ex]
-\hline
-\end{tabular*}
-\caption {USS XML index elements}
-\label{table:uss-index}
-\end{center}
-\end{table}
-
-
-%%
-%% NOTE: tabular* takes table width argument
-%%       Use of 'p' for left aligned column.
-%%       Use of 'cp' to center column.
-%%       The @{} works to remove an unwanted space.
-%%
-%% FIXME: Set width of centered columns?
-%%
-%% Links
-%% =====
-%% Getting to Grips with Latex - Tables
-%% by Andrew Roberts
-%% Source for @{\extracolsep{\fill} syntax.
-%% http://www.andy-roberts.net/misc/latex/latextutorial4.html
-%%
-\begin{table}[htb]
-\begin{center}
-\begin{tabular*}{0.90\textwidth}{@{\extracolsep{\fill}}@{}l@{}c@{}c@{}c}
-  \hline
-  \hline\\[-2.5ex]
-  col 1 & col 2 & col 3 & col 4 \\
-  \hline
-  \hline\\[-1.5ex]
-  item 1 & item 2 & item 3 & item 4 \\
-  \hline
-  item 1  & item 2  & item 3  & item 4  \\
-  \hline
-\end{tabular*}
-\caption {Demo}
-\label{table:demo-index}
-\end{center}
-\end{table}
-
-
-%% ================== Installed Daemons ===================
-%% ================== Installed Daemons ===================
-%% The htb attribute attempts to inline the table or figure
-%% where you put it in the document
-%%
-%% NOTE: tabular* takes table width argument
-%%       Use of 'p' for left aligned column.
-%%       Use of 'cp' to center column.
-%%       The @{} works to remove an unwanted space.
-%%
-%% FIXME: The ELM adn Elluminate Server columns are not centering.
-%%        Center with fixed width in LaTeX?
-%%
-%% Links
-%% =====
-%% Getting to Grips with Latex - Tables
-%% by Andrew Roberts
-%% http://www.andy-roberts.net/misc/latex/latextutorial4.html
-%%
-%%
-%% Configure caption on left using caption package.
-%% The key to this working is placing the \captionsetup
-%% just before the table or figure for which to manipulate
-%% the package.
-%%
-%% Other potential potential options include:
-%%   labelsep=newline
-%%   labelfont=bf
-%%
-%% Links
-%% =====
-%% Raggedright and caption package
-%% http://tex.stackexchange.com/questions/120411/raggedright-and-caption-package
-%%
-\captionsetup{%
-    justification=raggedright,
-    singlelinecheck=false
-}
-
-\begin{table}[htb]
-%%\begin{center}
-\begin{tabular*}{.80\textwidth}{@{\extracolsep{\fill}}@{}p{.25\textwidth}@{}c@{}c@{}c@{}c}
-\hline
-\hline\\[-2.5ex]
-Virtual Machine&Apache&ELM&LM&Elluminate Server\\
-\hline
-\hline\\[-1.5ex]   %% Trick to add whitespace after horizontal line
-\cmd{dcs-elive-prod01}&\,&x&x&x\\
-\cmd{uaa-elive-dev01}&x&x&x&\\
-\cmd{uaa-elive-server01}&\,&\,&\,&x\\[1.5ex]
-\cmd{uaa-elive-prod01}&\,&x&x&x\\
-\cmd{uaf-elive-prod01}&\,&x&x&x\\
-\cmd{uas-elive-prod01}&\,&x&x&x\\
-\hline
-\end{tabular*}
-\caption {Daemons}
-\label{table:daemons-index}
-%%\end{center}
-\end{table}
-
-
-
-\begin{table}[htb]
-\begin{tabular}{|p{.16\textwidth}|p{.17\textwidth}|p{.62\textwidth}|}\hline 
-Column Name&Type&Description\\ 
-\hline
-MTR&VARCHAR2(9)&Meridian, Township, Range, example: \emph{C026S054E}\\
-QMQ&VARCHAR2(3)&Quarter Million Quadrangle code,\\
-&&\hspace{10pt}example: \emph{DIL} (Dillingham quadrangle)\\
-\hline
-\end{tabular}
-\caption {\cmd{XREF\_MTR\_QMQ} Table}
-\label{table:xref_mtr_qmq}
-\end{table}
-
-
-%% ====================== Verbatim ==========================
-%% ====================== Verbatim ==========================
-\clearpage
-\newpage
-\subsection{Verbatim}
-
-``The verbatim environment is a paragraph-making environment that gets
-\LaTeX\ to print exactly what you type in. It turns \LaTeX\ into a typewriter
-with carriage returns and blanks having the same effect that they would
-on a typewriter.''\footnotemark
-
-\begin{verbatim}
-\begin{verbatim}
-    text
-\end{verbatim\}
-\end{verbatim}
-
-
-%% ========= Figure formatting with verbatim ===============
-%% ========= Figure formatting with verbatim ===============
-\noindent\begin{bf}Figure formatting with verbatim\end{bf}\\
-%%
-%% Making Figures in LaTeX
-%% The [htb] part above advises LaTeX to put the figure "here"
-%% or at the "top" or " bottom" of the page, with that order of preference.
-%% http://www.sci.utah.edu/~macleod/latex/latex-figures.html
-%%
-\noindent The following figure leverages verbatim for proper formatting:
-\vspace{-5mm}
-\begin{center}
-\begin{figure}[htb]
-\begin{quote}
-\small
-\begin{Verbatim}[frame=none]
-gis/raster/
-  dnr/
-    map_library/
-    plats/
-      SP/YYYYMMDD/*.pdf               # indexed
-      HI/YYYYMMDD/*.pdf               # Indexed
-      ASLS/YYYYMMDD/*.pdf             # Indexed
-    recorded-plats/
-      YYYYMMDD/*.pdf
-  blm/
-    easements_17b/YYYYMMDD/*.pdf      # indexed
-    mtp/YYYYMMDD/*.pdf                # non-indexed
-    usrs/YYYYMMDD/*.pdf               # indexed
-    usrs-notes/YYYYMMDD/*.pdf         # indexed
-    uss/YYYYMMDD/*.pdf                # indexed
-    uss-notes/YYYYMMDD/*.pdf          # indexed
-    usms/YYYYMMDD/*.pdf               # indexed
-    usms-notes/YYYYMMDD/*.pdf         # indexed
-  usgs/
-    drg/
-      collared/ 
-        250K/
-        63K/
-        25K/
-        24/
-      decollared/
-      tools/
-      missing\_data/
-    dem/
-    doq/
-    topo/
-\end{Verbatim}
-\normalsize
-\end{quote}
-\caption{File and Directory Structure}
-\label{fig:dirlayout}
-\end{figure}
-\end{center}
-
-
-
 %% ======================== Appendix =============================
 %% ======================== Appendix =============================
 %% ======================== Appendix =============================
@@ -1002,6 +693,7 @@ gis/raster/
 %% \section*{Appendix}
 %% Need content here.
 %%
+\newpage
 \setcounter{secnumdepth}{0}
 \section{Appendix}
 \fancyhead[LE,RO]{APPENDIX}
@@ -1037,7 +729,7 @@ There are 3 primary FileXfer \texttt{perl} scripts on
 \fancyhead[RE,LO]{\texttt{filexfer.plx}}
 \fancyhead[CE,CO]{File Transfer Jobs}
 \fancyhead[LE,RO]{APPENDIX}
-\subsection{\texttt{filexfer.plx} --- File Transfer Jobs}
+\subsubsection{\texttt{filexfer.plx} --- File Transfer Jobs}
 
 %%
 %% Including a file verbatim in LaTeX
@@ -1064,7 +756,7 @@ There are 3 primary FileXfer \texttt{perl} scripts on
 \fancyhead[CE,CO]{Job Monitor}
 \fancyhead[LE,RO]{APPENDIX}
 
-\subsection{\texttt{filexfer-jobmonitor.plx} --- Job monitor}
+\subsubsection{\texttt{filexfer-jobmonitor.plx} --- Job monitor}
 %%\verbatiminput{./filexfer-jobmonitor.plx}
 \lstset{numbers=left}
 \lstinputlisting{./filexfer-jobmonitor.plx}
@@ -1077,7 +769,7 @@ There are 3 primary FileXfer \texttt{perl} scripts on
 \fancyhead[CE,CO]{Data Loader}
 \fancyhead[LE,RO]{APPENDIX}
 
-\subsection{\texttt{filexfer-dataloader.plx --- Data Loader}}
+\subsubsection{\texttt{filexfer-dataloader.plx} --- Data Loader}
 %%\verbatiminput{./filexfer-dataloader.plx}
 \lstset{numbers=left}
 \lstinputlisting{./filexfer-dataloader.plx}
@@ -1158,6 +850,49 @@ There are 3 primary FileXfer \texttt{perl} scripts on
     &\texttt{/var/log/filexfer/filexfer-wps01-706-get.log}\\
     \hline \hline
 \end{longtable}
+
+
+
+
+%% ========================== LaTeX ==============================
+%% ========================== LaTeX ==============================
+\newpage
+\subsection{\LaTeX\ - Examples and Formatting}
+
+  
+%% ======================= Comments =======================
+%% ======================= Comments =======================
+\subsubsection{Comments}
+\begin{center}
+\framebox{
+\begin{minipage}[t]{0.9\textwidth}
+\cmd{COMMENTS} Comment --- \emph{Sean Weems, Spring 2003}\\
+We should get the \cmd{COMMENTS} column searchable via the 
+landrecords application before we do much anything else -- shouldn't
+be too hard.
+\end{minipage}
+}
+\end{center}
+
+\begin{center}
+\framebox{
+\begin{minipage}[t]{0.9\textwidth}
+\emph{Errata: Plats spanning multiple sections}\\
+A few anomalies can be observed in the \cmd{AKPLATS}
+table. Specifically plats exist that span multiple sections. 
+Since the table only has a single column, \cmd{SCODE}, 
+that accepts a single section code, SGU (Status
+Graphics Unit) has handled this problem by entering multiple 
+rows in the table, each with a different section that point to
+the same plat or file. Multiple section plats are indicated by  setting 
+the \cmd{TCODE} column to the value \cmd{37}, and making an 
+appropriate notation like \emph{Section 24-25-26-27} in the 
+\cmd{REMARKS} column.\\
+\FIXME{Perhaps the \cmd{SCODE} column should accept an array of sections?}
+
+\end{minipage}
+}
+\end{center}
 
 
 %% ========================== Links ==============================
