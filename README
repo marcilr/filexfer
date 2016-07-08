@@ -65,6 +65,10 @@ filexfer.plx
 filexfer.tex
   FileXfer - File Transfer Jobs
 
+FileXfer.txt 
+  FileXfer documenatation from Mark Blum before his departure to Hawaii  
+  in 2016. 
+
 filexfer-dataloader.plx 
   FileXfer - Data loader from prod-prov4-cdr1.operations.gci.com
   /usr/bin/filexfer.plx (June 30, 2016) 
