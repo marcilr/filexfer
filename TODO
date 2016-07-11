@@ -3,6 +3,12 @@ Created Mon Jun 27 09:24:36 AKDT 2016
 by Raymond E. Marcil <rmarci@gci.com>
 
 
+
++++ Mon Jul 11 08:21:38 AKDT 2016 - Add database schema details.
+
++++ Mon Jul 11 08:21:38 AKDT 2016 - Added logging section to include
+filexfer database and per job filesystem logs.
+
 +++ Fri Jul  1 09:39:59 AKDT 2016 - Added suibdirecties to LaTex build path
 to alleviate input statements like:
   \input{implementation/configuration.tex}
