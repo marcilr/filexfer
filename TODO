@@ -3,6 +3,10 @@ Created Mon Jun 27 09:24:36 AKDT 2016
 by Raymond E. Marcil <rmarci@gci.com>
 
 
++++ Tue Jul 12 15:40:22 AKDT 2016 - Should merge details from
+Perforce on covellite under:
+   ~/perforce/rmarcil-covellite/Scripts/MAIN/filexfer
+
 +++ Mon Jul 11 08:21:38 AKDT 2016 - Add database query and debugging details.
 
 +++ Mon Jul 11 08:21:38 AKDT 2016 - Add database schema details.
