@@ -7,6 +7,17 @@ by Raymond E. Marcil <rmarci@gci.com>
 Perforce on covellite under:
    ~/perforce/rmarcil-covellite/Scripts/MAIN/filexfer
 
+To get filexfer revision:
+
+$ p4 filelog /home/marcilr/rmarcil-covellite/rmarcil-covellite/Scripts/MAIN/filexfer/filexfer.plx 
+//Scripts/MAIN/filexfer/filexfer.plx
+... #39 change 3578 edit on 2012/09/17 by mgrimm@mgrimm-filexfer (xtext) 'Updated VERSION for 0.51. '
+... #38 change 3533 edit on 2012/08/17 by mgrimm@mgrimm-filexfer (xtext) 'Updated VERSION for 0.50. '
+... #37 change 3521 edit on 2012/08/07 by mgrimm@mgrimm-filexfer (xtext) 'Updated VERSION for 0.49. '
+...
+... #1 change 2678 add on 2011/06/10 by mgrimm@mgrimm-dev (xtext) 'Initial import of filexfer appl'
+$
+
 +++ Mon Jul 11 08:21:38 AKDT 2016 - Add database query and debugging details.
 
 +++ Mon Jul 11 08:21:38 AKDT 2016 - Add database schema details.
