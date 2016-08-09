@@ -322,7 +322,6 @@ cycle: clean $(VC) ${DVI} ${PS} ${PDF}
 
 # Remove temporary files, bz2 files, and pdf
 clean: mostly-clean
-	$(RM) -f  *.bz2 $(PDF)
 
 #
 # Remove temporary files, dist directory,
@@ -333,6 +332,9 @@ mostly-clean:
 	$(RM) -f $(BBL) $(BLG) $(LOT) $(OUT)
 	$(RM) -rf $(BASENAME)
 	$(RM) -f *.aux *.dvi *.lof *.log *.ps *.tmp
+
+really-clean: mostly-clean
+	$(RM) -f  *.bz2 $(PDF)
 
 # Wrapper targets for humans
 dvi: ${DVI}
