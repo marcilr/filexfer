@@ -157,7 +157,8 @@ SHA1:=$(shell $(GIT) rev-parse --verify HEAD)
 # How to get (only) author name or email in git given SHA1?
 # http://stackoverflow.com/questions/29876342/how-to-get-only-author-name-or-email-in-git-given-sha1
 #
-EMAIL:=$(shell $(GIT) show -s --format='%ae' $(SHA1))
+#EMAIL:=$(shell $(GIT) show -s --format='%ae' $(SHA1))
+EMAIL="rmarcil@gci.com"
 
 #
 # Generate datestamp password to tex.
