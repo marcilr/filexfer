@@ -3,6 +3,12 @@ Created Mon Jun 27 09:24:36 AKDT 2016
 by Raymond E. Marcil <rmarci@gci.com>
 
 
+
++++ Tue Jul 12 15:40:22 AKDT 2016 - Add fine graph showing all dependencies.
+
++++ Tue Jul 12 15:40:22 AKDT 2016 - Add prod-prov4-cdr1  /opt/Classes/ to
+dependencies section.
+
 +++ Tue Jul 12 15:40:22 AKDT 2016 - Should merge details from
 Perforce on covellite under:
    ~/perforce/rmarcil-covellite/Scripts/MAIN/filexfer
