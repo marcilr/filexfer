@@ -3,6 +3,9 @@ Created Mon Jun 27 09:24:36 AKDT 2016
 by Raymond E. Marcil <rmarci@gci.com>
 
 
++++ Thu Aug 25 09:43:44 AKDT 2016 - Logs under prod-prov4-cdr1
+/var/log/filexfer directory.
+
 +++ Thu Aug 25 09:43:44 AKDT 2016 - Add details on relevent cron jobs
 on prod-prov4-cdr1 under /etc/cron.d/
   filexfer
