@@ -3,11 +3,22 @@ Created Mon Jun 27 09:24:36 AKDT 2016
 by Raymond E. Marcil <rmarci@gci.com>
 
 
++++ Thu Aug 25 09:43:44 AKDT 2016 - Add details on relevent cron jobs
+on prod-prov4-cdr1 under /etc/cron.d/filexfer-userscripts/
+  filexfer
+  filexfer-userscripts
+  sysstat
 
 +++ Tue Jul 12 15:40:22 AKDT 2016 - Add fine graph showing all dependencies.
 
 +++ Tue Jul 12 15:40:22 AKDT 2016 - Add prod-prov4-cdr1  /opt/Classes/ to
 dependencies section.
+
+These are checked into perforce under:
+  ./rmarcil-covellite/Shared/MAIN/Production/Modules/Usage/AAA.pm
+  ./rmarcil-covellite/Shared/MAIN/Production/Classes/File/CallDetailRecord/AAA.pm
+  ./rmarcil-covellite/Shared/MAIN/Production/Classes/Usage/AAA.pm
+  ./rmarcil-covellite/Shared/MAIN/Production/Classes/ElementManagers/AAA.pm
 
 +++ Tue Jul 12 15:40:22 AKDT 2016 - Should merge details from
 Perforce on covellite under:
