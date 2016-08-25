@@ -18,10 +18,11 @@ A number of called scripts on prod-prov4-cdr1 are under:
 dependencies section.
 
 These are checked into perforce under:
-  ./rmarcil-covellite/Shared/MAIN/Production/Modules/Usage/AAA.pm
-  ./rmarcil-covellite/Shared/MAIN/Production/Classes/File/CallDetailRecord/AAA.pm
-  ./rmarcil-covellite/Shared/MAIN/Production/Classes/Usage/AAA.pm
-  ./rmarcil-covellite/Shared/MAIN/Production/Classes/ElementManagers/AAA.pm
+  ~/perforce//rmarcil-covellite/Shared/MAIN/Production/Modules/Usage/AAA.pm
+  ~/perforce/rmarcil-covellite/Shared/MAIN/Production/Classes/File/CallDetailRecord/AAA.pm
+  ~/perforce/rmarcil-covellite/Shared/MAIN/Production/Classes/Usage/AAA.pm
+  ~/perforce/rmarcil-covellite/Shared/MAIN/Production/Classes/ElementManagers/AAA.pm
+  ~/perforce/rmarcil-covellite/Scripts/MAIN/filexfer/scripts/
 
 +++ Tue Jul 12 15:40:22 AKDT 2016 - Should merge details from
 Perforce on covellite under:
