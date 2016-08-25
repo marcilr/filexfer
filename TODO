@@ -9,6 +9,9 @@ on prod-prov4-cdr1 under /etc/cron.d/
   filexfer-userscripts
   sysstat
 
+A number of called scripts on prod-prov4-cdr1 are under:
+  /usr/lib/filexfer/
+
 +++ Tue Jul 12 15:40:22 AKDT 2016 - Add fine graph showing all dependencies.
 
 +++ Tue Jul 12 15:40:22 AKDT 2016 - Add prod-prov4-cdr1  /opt/Classes/ to
