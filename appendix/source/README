@@ -1,0 +1,19 @@
+README
+Created Tue Aug  9 08:58:57 AKDT 2016
+Copyright (C) 2016 by Raymond E. Marcil <marcilr@gmail.com>
+
+
+Filelist
+========
+filexfer.plx
+    File transfer job script from prod-prov4-cdr1.operations.gci.com
+    /usr/bin/filexfer.plx (June 30, 2016)
+
+filexfer-dataloader.plx
+    FileXfer - Data loader from prod-prov4-cdr1.operations.gci.com
+    /usr/bin/filexfer.plx (June 30, 2016)
+
+
+filexfer-jobmonitor.plx
+    FileXfer - Job Monitor
+    /usr/bin/filexfer-jobmonitor.plx (June 30, 2016)
