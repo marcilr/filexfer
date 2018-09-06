@@ -1,0 +1,261 @@
+%% -*- Mode: LaTeX -*-
+%%
+%% appendix.tex
+%% Created Fri Jul  1 08:47:41 AKDT 2016
+%% Copyright (C) 2016 by Raymond E. Marcil <marcilr@gmail.com>
+%%
+%% Appendix for file transfer jobs
+%%
+
+
+
+%% ======================== Appendix =============================
+%% ======================== Appendix =============================
+%% ======================== Appendix =============================
+%%
+%% This will add a standard non-numbered Appendix to the document.
+%% The next section Appendix changes secnumdepth such that the Appendix
+%% is not numbered but still displayed in the table of contents (TOC).
+%%
+%% Adding unnumbered sections to TOC
+%% http://tex.stackexchange.com/questions/11668/adding-unnumbered-sections-to-toc
+%% 
+%% \section*{Appendix}
+%% Need content here.
+%%
+\newpage
+\setcounter{secnumdepth}{0}
+\section{Appendix}
+\fancyhead[LE,RO]{APPENDIX}
+
+
+%% ========================= Source ==============================
+%% ========================= Source ==============================
+\subsection{Source}
+There are 3 primary FileXfer \texttt{perl} scripts on
+\texttt{prod-prov4-cdr1}:\footnote{\texttt{prod-prov4-cdr1.operations.gci.com}
+  (\texttt{192.168.161.47}, NATed IP: \texttt{66.223.199.228}), data including
+  CDRs and such under \texttt{/data/usage/} ---
+  Network Services, OSS.}
+
+
+\begin{table}[htb]
+\begin{tabular}{|p{.35\textwidth}|p{.17\textwidth}|p{.50\textwidth}|}\hline 
+\textbf{File name}&\textbf{Attributes}&\textbf{Description}\\ 
+\hline
+\texttt{filexfer.plx}&181 lines&File transfer jobs\\
+\texttt{filexfer-dataloader.plx}&132 lines&Data loader\\
+\texttt{filexfer-jobmonitor.plx}&132 lines&Job Monitor\\
+\hline
+\end{tabular}
+\caption{FileXfer \texttt{perl} scripts on \texttt{prod-prov4-cdr1}}
+\label{table:FileXfer_scripts_on_prod-prov4-cdr1}
+\end{table}
+
+
+%% ====================== filexfer.plx ===========================
+%% ====================== filexfer.plx ===========================
+\newpage
+\fancyhead[RE,LO]{\texttt{filexfer.plx}}
+\fancyhead[CE,CO]{File Transfer Jobs}
+\fancyhead[LE,RO]{APPENDIX}
+\subsubsection{\texttt{filexfer.plx} --- File Transfer Jobs}
+
+%%
+%% Including a file verbatim in LaTeX
+%% A good way is to use Rainer Schöpf’s verbatim package,
+%% which provides a command \verbatiminput that takes a
+%% file name as argument:
+%%
+%%     usepackage{verbatim}
+%%     ...
+%%     \verbatiminput{verb.txt}
+%%
+%% Including a file verbatim in LaTeX
+%% http://www.tex.ac.uk/FAQ-verbfile.html
+%%
+%%\verbatiminput{./filexfer.plx}
+%%\lstset{numbers=left}
+\lstset{
+    numbers=left,
+    breaklines=true,
+    postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
+}
+\lstinputlisting{./appendix/source/filexfer.plx}
+
+
+%% ================ filexfer-jobmonitor.plx ======================
+%% ================ filexfer-jobmonitor.plx ======================
+\newpage
+\fancyhead[RE,LO]{\texttt{filexfer-jobmonitor.plx}}
+\fancyhead[CE,CO]{Job Monitor}
+\fancyhead[LE,RO]{APPENDIX}
+
+\subsubsection{\texttt{filexfer-jobmonitor.plx} --- Job monitor}
+%%\verbatiminput{./filexfer-jobmonitor.plx}
+
+%%
+%% lstlisting line wrapping
+%% Great stuff.
+%% http://tex.stackexchange.com/questions/116534/lstlisting-line-wrapping
+%%
+\lstset{
+    numbers=left,
+    breaklines=true,
+    postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
+}
+\lstinputlisting{./appendix/source/filexfer-jobmonitor.plx}
+
+
+%% ================ filexfer-dataloader.plx ======================
+%% ================ filexfer-dataloader.plx ======================
+\newpage
+\fancyhead[RE,LO]{\texttt{filexfer-dataloader.plx}}
+\fancyhead[CE,CO]{Data Loader}
+\fancyhead[LE,RO]{APPENDIX}
+
+\subsubsection{\texttt{filexfer-dataloader.plx} --- Data Loader}
+%%\verbatiminput{./filexfer-dataloader.plx}
+\lstset{
+    numbers=left,
+    breaklines=true,
+    postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
+}
+\lstinputlisting{./appendix/source/filexfer-dataloader.plx}
+
+
+\vspace{20pt}
+\noindent\FIXME{Need data here}
+
+\begin{longtable}[l]{ll}
+%%    \label{FileXfer directories and files on prod-prov4-cdr1}
+    \multicolumn{2}{c}%
+    {{\bfseries \tablename\ \thetable{} -- FileXfer directories and files on \texttt{prod-prov4-cdr1}}} \\
+    \hline
+    \multicolumn{1}{|l|}{\textbf{Directory}} &
+    \multicolumn{1}{l|}{\textbf{File(s)}}\\
+    \hline
+\endfirsthead
+
+\multicolumn{2}{c}%
+{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\hline
+\multicolumn{1}{|l|}{\textbf{Directory}} &
+\multicolumn{1}{l|}{\textbf{File(s)}} \\ \hline 
+\endhead
+
+\hline \multicolumn{2}{|r|}{{Continued on next page}} \\ \hline
+\endfoot
+
+%% This was double horizontal lines at end of table (removed)
+%%\hline \hline
+\endlastfoot
+
+    \texttt{/etc/filexfer/}&\texttt{*.conf}\\
+    \texttt{/usr/bin/}&\texttt{filexfer-dataloader}\\
+    &\texttt{\textbf{filexfer-dataloader.plx}}\\
+    &\texttt{filexfer-dataloader.plx.mbak}\\
+    &\texttt{filexfer-epg-dataloader.plx}\\
+    &\texttt{filexfer-filearchive}\\
+    &\texttt{filexfer-filearchive.sh}\\
+    &\texttt{filexfer-fileunarchive}\\
+    &\texttt{filexfer-fileunarchive.sh}\\
+    &\texttt{filexfer-jobmonitor}\\
+    &\texttt{\textbf{filexfer-jobmonitor.plx}}\\
+    &\texttt{\textbf{filexfer.plx}}\\
+    \texttt{/usr/lib/filexfer}/&\texttt{*.gz, *.sh, *.plx}\\
+    &\texttt{ExtractCarrierTurboZoneUsage*}\\
+    \texttt{/usr/share/filexfer}/&\texttt{filexfer.changelog-*.xml}\\
+    &\texttt{filexfer.changelog-master.xml}\\
+    &\texttt{liquibase.sh}\\
+    &\texttt{.gnupg/pubring.gpg}\\
+    &\texttt{.gnupg/random\_seed}\\
+    \texttt{/var/cache/yum/build/packages/}&\texttt{filexfer-0.52-1.el5.centos.noarch.rpm}\\
+    \texttt{/var/lib/filexfer/}
+    &\texttt{dataloader.kch}\\
+    &\texttt{dataloader\_temp.kch}\\
+    &\texttt{filexfer-aaa01-13-get.kch}\\
+    &\texttt{...}\\
+    &\texttt{filexfer-wps01-706-get.kch}\\
+    &\texttt{filexfer.kch}\\
+    &\texttt{jobmonitor-mailstat.kch}\\
+    &\texttt{jobmonitor.kch}\\
+    \texttt{/var/log/filexfer}&\texttt{*.log}\\
+    &\texttt{ExtractCarrierTurboZoneUsage\_ACS.log}\\
+    &\texttt{archive}\\
+    &\texttt{convert-wps-om-counters-report-part2.log}\\
+    &\texttt{convert-wps-om-counters-report.log}\\
+    &\texttt{\textbf{dataloader.log}}\\
+    &\texttt{dataloader\_temp.log}\\
+    &\texttt{dataloadinsert.log}\\
+    &\texttt{datarecovery.log}\\
+    &\texttt{epg-dataloader.log}\\
+    &\texttt{ericsson-oss-rl-reports-preprocess.log}\\
+    &\texttt{ericsson-oss-sts-reports-preprocess.log}\\
+    &\texttt{filearchive.log}\\
+    &\texttt{filexfer-aaa01-13-get.log}\\
+    &\texttt{filexfer-aaa01-14-put.log}\\
+    &\texttt{...}\\
+    &\texttt{/var/log/filexfer/filexfer-wps01-706-get.log}\\
+    \hline \hline
+\end{longtable}
+
+
+
+
+%% ========================== LaTeX ==============================
+%% ========================== LaTeX ==============================
+\newpage
+\subsection{\LaTeX\ - Examples and Formatting}
+
+  
+%% ======================= Comments =======================
+%% ======================= Comments =======================
+\subsubsection{Comments}
+\begin{center}
+\framebox{
+\begin{minipage}[t]{0.9\textwidth}
+\cmd{COMMENTS} Comment --- \emph{Sean Weems, Spring 2003}\\
+We should get the \cmd{COMMENTS} column searchable via the 
+landrecords application before we do much anything else -- shouldn't
+be too hard.
+\end{minipage}
+}
+\end{center}
+
+\begin{center}
+\framebox{
+\begin{minipage}[t]{0.9\textwidth}
+\emph{Errata: Plats spanning multiple sections}\\
+A few anomalies can be observed in the \cmd{AKPLATS}
+table. Specifically plats exist that span multiple sections. 
+Since the table only has a single column, \cmd{SCODE}, 
+that accepts a single section code, SGU (Status
+Graphics Unit) has handled this problem by entering multiple 
+rows in the table, each with a different section that point to
+the same plat or file. Multiple section plats are indicated by  setting 
+the \cmd{TCODE} column to the value \cmd{37}, and making an 
+appropriate notation like \emph{Section 24-25-26-27} in the 
+\cmd{REMARKS} column.\\
+\FIXME{Perhaps the \cmd{SCODE} column should accept an array of sections?}
+
+\end{minipage}
+}
+\end{center}
+
+
+%% ========================== Links ==============================
+%% ========================== Links ==============================
+\subsection{Links}
+%% ============= LaTeX - Wikibooks ===============
+A Guide to \LaTeX\\\
+\href{http://www.astro.rug.nl/~kuijken/latex.html}
+{http://www.astro.rug.nl/~kuijken/latex.html}
+\\
+\\
+\LaTeX\ - From Wikibooks,the open-content textbooks collection\\
+\href{http://en.wikibooks.org/wiki/LaTeX}{http://en.wikibooks.org/wiki/LaTeX}
+\\
+\\
+\LaTeX\ Notes\\
+\href{http://luke.breuer.com/time/item/LaTeX\_Notes/180.aspx}{http://luke.breuer.com/time/item/LaTeX\_Notes/180.aspx}
