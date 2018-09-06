@@ -1,0 +1,42 @@
+%% -*- Mode: LaTeX -*- 
+%%
+%% application-logging.tex
+%% Created Fri Jul  1 11:07:46 AKDT 2016
+%% by Raymond E. Marcil <rmarcil@gci.com>
+%%
+%% Application Logging
+%%
+
+%% ================== Application Logging ======================
+%% ================== Application Logging ======================
+\subsubsection{Application Logging}
+The filexfer applications log to the \texttt{/var/log/filexfer}
+directory on \texttt{prod-prov4-cdr1.}\textbackslash\\
+\texttt{operations.gci.com}. The parent \texttt{filexfer} jobs
+log to \texttt{filexfer-get.log} and
+\texttt{filexfer-}\textbackslash\\
+\texttt{put.log}.
+The \texttt{jobmonitor} and \texttt{dataloader} applications
+log to \texttt{jobmonitor.log} and\\
+\texttt{dataloader.log}, The \texttt{filexfer} applications
+log to the \texttt{/var/log/filexfer} directory on
+\texttt{prod-prov4-cdr1.operations.gci.com}. The parent
+\texttt{filexfer} jobs
+log to \texttt{filexfer-get.}\textbackslash\\
+\texttt{log} and \texttt{filexfer-put.log}. The
+\texttt{jobmonitor} and \texttt{dataloader} applications log to\\
+\texttt{jobmonitor.log} and \texttt{dataloader.log}, respectively. Each file
+transfer job is executed as a child process and gets its own log file. The
+format is\\
+\texttt{filexfer-}$\{$\texttt{neName}$\}$\texttt{-}$\{$\texttt{idJob}$\}$\texttt{-}$\{$\texttt{get,put}$\}$\texttt{.log}.\\
+\\
+By default, the jobs log at the warn level.  Adjust the level to info to get a
+high-level view of the application's state.  Adjust log verbosity by modifying
+the appropriate config file in \texttt{/etc/filexfer}.  The changes will take
+effect after the next program execution.\\
+\\
+Errors are also logged to a database table which can be browsed in the
+filexfer web interface under the '\texttt{Logs \& Errors}' view.  This view
+includes messages logged at \texttt{warn}, \texttt{error}, and \texttt{fatal}
+severity.\footnote{\href{http://oss-wiki.operations.gci.com/dev/index.php/Usage\_Collection\_Framework\_(filexfer)}{Usage Collection Framework (filexfer)}}
+
