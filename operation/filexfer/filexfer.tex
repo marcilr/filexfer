@@ -1,0 +1,185 @@
+%% -*- Mode: LaTeX -*-
+%%
+%% filexfer.tex
+%% Created Mon Aug 22 10:20:54 AKDT 2016
+%% by Raymond E. Marcil <rmarcil@gci.com>
+%%
+%% Filexfer
+%%
+
+%% ======================== FileXfer ============================
+%% ======================== Filexfer ============================
+%% ======================== Filexfer ============================
+\subsection{FileXfer}
+\fancyhead[LE,RO]{OPERATION}
+
+There are times it is desirable to run FileXfer outside of the
+FileXfer GUI app on Relevance.  Perhaps when it is desirable to
+execute a single file transfer job. To do this login to 
+GCI Network Services, OSS \texttt{prod-prov4-cdr1.operations.gci.com}
+(\texttt{192.168.161.47}).\\
+\\
+The \texttt{filexfer} command is available from the command line.
+It has relative straightforward syntax:
+
+\begin{verbatim}
+[root@prod-prov4-cdr1 usage]# /usr/bin/filexfer
+Usage:
+    filexfer.plx -c configfile -t {get|put} [options]
+
+[root@prod-prov4-cdr1 usage]# cd ~
+[root@prod-prov4-cdr1 ~]# /usr/bin/filexfer
+Usage:
+    filexfer.plx -c configfile -t {get|put} [options]
+
+[root@prod-prov4-cdr1 ~]# /usr/bin/filexfer --help
+Usage:
+    filexfer.plx -c configfile -t {get|put} [options]
+
+Arguments:
+    -c, --configfile
+        Specify the configuration file to load. Must be in YAML format.
+
+    -t, --transfertype
+        One of "get" or "put". Get jobs download files and put jobs upload
+        files.
+
+Options:
+    -d, --piddir
+        Directory where the pid file will be written. Defaults to
+        /var/run/filexfer.
+
+    --db
+        Sets the database connection parameters. Valid keys are: server
+        (default localhost), port (default 3306), driver (default mysql),
+        uid, pwd, database, and table. Specify tags as key/value pairs,
+        e.g.:
+
+            --db server=localhost --db database=filexfer
+
+    -e, --evengehost
+        Address of the Evenge web server. Used to send indicators and events
+        to the NMS system.
+
+    --evengetimeout
+        Timeout in seconds for communicating with the Evenge web server.
+        Defaults to 10.
+
+    -f, --cachefile
+        Template cache file location. Defaults to
+        /var/lib/filexfer/filexfer.kch.
+
+    -h, --help
+        Output this documentation.
+
+    -m, --maxchildren
+        Maximum number of child processes to spawn. Defaults to 50.
+
+    -p, --pidfile
+        PID file name. This will be appended with a ".pid" suffix.
+
+    -r, --resource
+        Resource name of this application. Used in indicator and event
+        messages sent to the NMS system.
+
+    --verbose, -v
+        Log to the screen at increasingly verbose levels. This option may be
+        repeated multiple times to increase the log level. For example, "-v"
+        logs at info level, "-vv" logs at debug level, and "-vvv" logs at
+        trace level.
+
+[root@prod-prov4-cdr1 ~]# 
+\end{verbatim}
+
+\noindent The files transfered \texttt{filexfer} are under the
+\texttt{/data/usage/} directory.
+
+\begin{verbatim}
+$ ssh hnmadm@prod-prov4-cdr1
+hnmadm@192.168.161.47's password: 
+Last login: Fri Aug 19 15:36:27 2016 from 10.103.193.217
+[hnmadm@prod-prov4-cdr1 ~]$ cd /data/usage/
+[hnmadm@prod-prov4-cdr1 usage]$ ls
+AAA01       GA05  GA23  GA44  GA68  GC28  GC50    HAR01    P810     SPB02
+ACS01       GA06  GA24  GA45  GA71  GC30  GC51    HCR01    P811     SPS02
+AUB01       GA07  GA26  GA46  GA73  GC31  GC52    HMSC01   RBB01    SWPP01
+BAL01       GA08  GA27  GA47  GA76  GC34  GC66    INC01    reports  SYNIVERSE
+CAR01       GA09  GA28  GA48  GA77  GC35  GC87    INC02    RXNET01  TAL01
+CBM01       GA10  GA29  GA49  GC05  GC36  GC88    INC03    SADC5E   TCS01
+CDMA        GA11  GA30  GA50  GC15  GC37  GC89    IOP01    SBC01    TMP01
+cdrReports  GA12  GA32  GA51  GC16  GC38  GC90    KUL01    SDC5E    TSUNAMI
+CON01       GA13  GA33  GA52  GC17  GC39  GC91    legacy   SDE01    UNG01
+CSKY01      GA14  GA34  GA53  GC18  GC41  GC93    LGCBX01  SDE01L   UNK01
+CSKY02      GA15  GA35  GA55  GC19  GC42  GC94    MSW01    SDE01P   VORTEX01
+DIM01       GA16  GA36  GA56  GC20  GC43  GC95    MTAS01   SDE02    WIFI01
+EOS01       GA17  GA37  GA57  GC21  GC44  GC97    MUK01    SDE02L   WISP01
+EPG01       GA18  GA38  GA58  GC22  GC45  GC98    Nov-18   SDE02P   WPS01
+EPG02       GA19  GA39  GA59  GC23  GC46  GCT1    NRTRADE  SGSN01
+GA01        GA20  GA41  GA65  GC24  GC47  GCT2    OCR01    SHU01
+GA03        GA21  GA42  GA66  GC26  GC48  GGSN01  OSS01    SMSC01
+GA04        GA22  GA43  GA67  GC27  GC49  GSM     P8       SPB01
+[hnmadm@prod-prov4-cdr1 usage]$ sudo -s
+Password:
+[root@prod-prov4-cdr1 archive]#
+
+\end{verbatim}
+
+\noindent The directory names under \texttt{/data/usage/} map to the
+\texttt{neName} column in the \texttt{filexfer.jobs} table that
+is displayed in the FileXfer GUI application under the
+File Transfer Jobs display in the \texttt{NE ID} field.\\
+\\
+The \texttt{filexfer get} jobs currently executing can be inspected with:
+
+\begin{verbatim}
+[root@prod-prov4-cdr1 usage]# ps ax | grep get
+17585 ?        S      0:00 /usr/bin/filexfer \
+-c /etc/filexfer/filexfer-get.conf -t get P8
+17586 ?        S      0:00 /usr/bin/filexfer \
+-x /etc/filexfer/filexfer-get.conf -t get P811
+17588 ?        SN     0:00 /usr/bin/filexfer \
+-c /etc/filexfer/filexfer-get.conf -t get SMSC01
+17593 ?        SN     0:00 /usr/bin/filexfer \
+-c /etc/filexfer/filexfer-get.conf -t get KUL01
+17594 ?        SN     0:00 /usr/bin/filexfer \
+-c /etc/filexfer/filexfer-get.conf -t get CAR01
+24286 ?        S      0:00 /usr/bin/filexfer \
+-c /etc/filexfer/filexfer-get.conf -t get GCT2
+[root@prod-prov4-cdr1 usage]#
+\end{verbatim}
+
+\noindent The \texttt{filexfer put} jobs currently executing can be
+inspected with:
+
+\begin{verbatim}
+[root@prod-prov4-cdr1 usage]# ps ax | grep put
+...
+ 3863 ?        S      0:00 /usr/bin/filexfer \
+-c /etc/filexfer/filexfer-put.conf -t put GC93
+ 3864 ?        S      0:00 /usr/bin/filexfer \
+-c /etc/filexfer/filexfer-put.conf -t put GC94
+ 3866 ?        S      0:00 /usr/bin/filexfer \
+-c /etc/filexfer/filexfer-put.conf -t put GC37
+ 3867 ?        S      0:00 /usr/bin/filexfer \
+-c /etc/filexfer/filexfer-put.conf -t put GC95
+ 3869 ?        S      0:00 /usr/bin/filexfer \
+-c /etc/filexfer/filexfer-put.conf -t put GA32
+ 3870 ?        S      0:00 /usr/bin/filexfer \
+...
+[root@prod-prov4-cdr1 usage]#
+\end{verbatim}
+
+\newpage
+\noindent The same filexfer syntax displayed in the process list
+can be using to execute an individual job to transfer files:
+
+\begin{verbatim}
+[root@prod-prov4-cdr1 ~]# /usr/bin/filexfer
+Usage:
+    filexfer.plx -c configfile -t {get|put} [options]
+
+[root@prod-prov4-cdr1 ~]
+
+
+[root@prod-prov4-cdr1 ~]# /usr/bin/filexfer -c /etc/filexfer/filexfer-put.conf -t put GC34
+\end{verbatim}
