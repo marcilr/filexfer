@@ -1,0 +1,39 @@
+%% -*- Mode: LaTeX -*-
+%%
+%% scripts.tex
+%% Created Fri Jul  8 15:38:16 AKDT 2016
+%% Copyright (C) 2016 by Raymond E. Marcil <marcilr@gmail.com>
+%%
+%% Scripts
+%%
+
+\newpage
+\subsection{Scripts}
+The FileXfer application is made up of serveral scripts which are driven
+by \texttt{cron} as follows:\footnote{FileXfer.txt:93, GCI Network Services,
+OSS Mark Blum, Spring 2016}
+
+\begin{verbatim}
+[root@prod-prov4-cdr1 ~]# cat /etc/cron.d/filexfer
+MAILTO=""
+PERL5LIB=/opt
+
+# This script preforms all of the get/collect jobs.
+* * * * * filexfer /usr/bin/filexfer -c /etc/filexfer/filexfer-get.conf -t get
+# This script preforms all of the put/export jobs.
+* * * * * filexfer /usr/bin/filexfer -c /etc/filexfer/filexfer-put.conf -t put
+
+# This script runs all of the job monitor jobs, and generates the relevant \
+alerts and/or emails.
+* * * * * filexfer /usr/bin/filexfer-jobmonitor -c /etc/filexfer/jobmonitor.conf
+
+# This script runs all of the data loader jobs.
+* * * * * filexfer /usr/bin/filexfer-dataloader -c /etc/filexfer/dataloader.conf
+#* * * * * filexfer /usr/bin/filexfer-epg-dataloader.plx \
+-c /etc/filexfer/epg-dataloader.conf
+
+# These scripts take care of the archiving
+2 0 * * * filexfer for dir in /data/usage/*; do /usr/bin/filexfer-filearchive \
+$dir >>/var/log/filexfer/filearchive.log 2>&1; done
+5 0 * * * filexfer find /data/usage -type f -name \*.sum -mmin +43200 | xargs rm
+\end{verbatim}
