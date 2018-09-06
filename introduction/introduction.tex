@@ -1,0 +1,71 @@
+%% -*- Mode: LaTeX -*-
+%%
+%% introduction.tex
+%% Created Fri Jul  1 08:53:27 AKDT 2016
+%% by Raymond E. Marcil <rmarcil@gci.com>
+%%
+%% Introduction for file transfer jobs
+%%
+
+
+
+%% ====================== Introduction ===========================
+%% ====================== Introduction ===========================
+%% ====================== Introduction ===========================
+\newpage
+\setcounter{secnumdepth}{2}
+\section{Introduction}
+\fancyhead[LE,RO]{INTRODUCTION}
+FileXfer is a custom application that GCI OSS built whose primary
+purpose is to transfer files from point A to point B (most of the
+time via point C/itself).  It can also be used to load the
+collected data into a database if the data fits within the
+constraints of MySQL Load Data Infile SQL Syntax.  It supports
+FTP and SFTP for both gets and puts, and it also has limited
+support for HTTP gets (this feature is used to collect weather
+camera images off of the Terra mountain top sites for the
+FAA).\footnote{FileXfer.txt:3, GCI Network Services, OSS Mark
+Blum, Spring 2016}\\
+\\
+FileXfer can also be used to prune the source server's target
+files to a certain number of days.  And while the default is
+to keep the source file time, this feature can be toggle off
+on a per job basis, resulting in the files having the transfer
+time instead as some customers prefer to know when the file
+was dropped off and not when the file was generated.  For
+performance reasons there is a cutoff feature as well which
+defaults to 5 days for new jobs.  FileXfer will not look more
+than the cutoff days back to see if a file should be collected
+and/or exported.  FileXfer jobs are also capable of running
+in audit mode, in which FileXfer will log all of the transfers
+but it won't physically transfer anything.  This feature can
+be useful to get a feed caught up without transfering a bunch
+of files around if for whatever reason the backlog of files
+doesn't need to be processed by any customers.\\
+\\
+FileXfer logs all file transfers and any errors.  However, it
+is not considered an error if there are no files to collect.
+FileXfer also supports monitoring of transfer jobs, and can
+generate an alert for any reason that you can articulate with
+SQL.  Some examples include late and/or missing files, load
+queue too large, file too small, no files transfered for a
+certain interval, etc.  The monitoring supports internal
+only alerts, TAC visibile alerts, and/or emailing the alerts.
+The email feature also supports sending of texts to cell
+phones.\\
+\\
+FileXfer will re-transfer a file if either the size and/or
+source file time changes, as that signals something about the
+file has changed.  Some feeds leverage this concept as they
+may use a static filename in which the data is simply re-writen
+to same exact file at regular intervals.\\
+\\
+The main FileXfer app server is
+\texttt{prod-prov4-cdr1.operations.gci.com}
+(\texttt{192.168.161.47}).  The ''ACS'' / Project Seward
+FileXfer app server (which contains only ACS/Project
+Serward related jobs) is the SPS2 OSS Test app server,
+\texttt{osstest-em-provisioning.operations.gci.com}
+(\texttt{192.168.56.4}; public IP \texttt{66.223.155.33}).
+
+
