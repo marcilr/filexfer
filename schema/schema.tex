@@ -1,0 +1,144 @@
+%% -*- Mode: LaTeX -*-
+%%
+%% schema.tex
+%% Created Fri Jul  1 08:37:02 AKDT 2016
+%% by Raymond E. Marcil <rmarcil@gci.com>
+%%
+%% Schema used by file transfer jobs
+%%
+
+%% ========================= Schema ============================
+%% ========================= Schema ============================
+%% ========================= Schema ============================
+\newpage
+\section{Schema}
+The main FileXfer database server is
+\texttt{sadc-cdr-mysql1.operations.gci.com}
+(\texttt{192.68.56.189}) and the ACS/Project Seward
+FileXfer database server is the SPS2 OSS Test database
+server, \texttt{osstest-db-provisioning.operations.gci.com}
+(\texttt{192.168.69.149}).  For both database servers
+the FileXfer database is called \texttt{filexfer}.\footnote{FileXfer.txt:11, GCI Network Services, OSS Mark Blum, Spring 2016}\\
+\\
+\noindent Here's a breakdown of the tables:
+\begin{verbatim}
+[mblum@development-mark ~]$ mysql -h sadc-cdr-mysql1 -sss \
+-e "USE filexfer; SHOW TABLES"
+DATABASECHANGELOG
+DATABASECHANGELOGLOCK
+errors
+joblogs
+jobs
+loadjobs
+loadqueue
+logs
+monitors
+
+DATABASECHANGELOG
+DATABASECHANGELOGLOCK
+
+\end{verbatim}
+
+\noindent These two tables manage how updates to the database structure
+of FileXfer are preformed and stored.
+
+\subsection{\texttt{errors}}
+This table stores any errors FileXfer encounters.
+
+\subsection{joblogs}
+This is actually a view.  Here's the create statement:
+
+\begin{verbatim}
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `filexfer`@`%` 
+    SQL SECURITY DEFINER
+VIEW `filexfer`.`joblogs` AS
+    SELECT 
+        `j`.`idJob` AS `idJob`,
+        `l`.`idLog` AS `idLog`,
+        `j`.`jobName` AS `jobName`,
+        `j`.`neName` AS `neName`,
+        `l`.`srcFileName` AS `srcFileName`,
+        `l`.`srcFileSize` AS `srcFileSize`,
+        `l`.`srcFileTime` AS `srcFileTime`,
+        `l`.`destFileSize` AS `destFileSize`,
+        `l`.`destFileName` AS `destFileName`,
+        `l`.`dtTransferStart` AS `dtTransferStart`,
+        `l`.`dtTransferStop` AS `dtTransferStop`
+    FROM
+        (`filexfer`.`jobs` `j`
+    JOIN `filexfer`.`logs` `l` ON ((`j`.`idJob` = `l`.`idJob`)));
+\end{verbatim}
+
+\subsection{jobs}
+This stores all of the transfer jobs.  Transfer jobs utilize a cron
+like schedule, and their run policy can be set to schedule (i.e.
+run as per the cron schedule), always, and never.  There is also
+a wantSummary field that can be set to either yes or no.  Some
+customers (mainly StarSolutions MSC Usage jobs) want summaries of
+the transfer file (number of records etc.) and this feature
+automatically generates that and transfer it along with the file.
+Priority is another feature of the FileXfer system.  Given a limited
+amount of resources you can set differing priority levels for jobs
+(1 - 100 with 1 being the highest priority), so that jobs with
+higher priorities get preference over lower priority jobs when
+system resources are constrained.  Generally production jobs get
+high priority (5) and lab/test jobs get low priority (100).\\
+\\
+The \texttt{neName} field, which stands for Network Element Name,
+basically defines the directory where the files will be stored.
+They are stored in \texttt{/data/usage/[neName]}.  Files are
+automatically archived if they are older than 2 days (to
+\texttt{/data/usage/[neName]/archive}), and archived files are
+deleted if they are older than 30 days.  There is a script that
+can be used to unarchive files (say for retransfer purposes)
+called \texttt{/usr/bin/filexfer-fileunarchive}.  It takes a
+file mask to unarchive and supports glob syntax.\\
+\\
+The \texttt{idSite} field is an incomplete feature and not
+really used at this time.
+
+\subsection{\texttt{loadjobs}}
+This stores all of the load jobs.  Not every transfer job has
+a corrisponding load job, and some transfer jobs may have more
+than one load job.
+
+\subsection{\texttt{loadqueue}}
+This is the queue for the load jobs.  Entries in here have yet
+to be loaded.  The loading is done in order.\\
+\\
+Here's a SQL query that can be used to view the loadqueue:
+
+\begin{verbatim}
+# FileXfer Load Queue Status
+SELECT idJob, idLoadJob, jobName, neName,
+IF( idJob = 0,FROM_UNIXTIME( Count ), Count ) AS 'Count', fileName, fileTime
+FROM 
+(
+	SELECT 0 AS 'idJob', 0 AS 'idLoadJob', 'Current Time' AS 'jobName',
+        'neName', UNIX_TIMESTAMP( NOW() ) AS 'Count', 'fileName', 'fileTime'
+
+	UNION
+
+	SELECT idJob, idLoadJob, jobs.jobName, jobs.neName, COUNT(*),
+        fileName, fileTime
+	FROM filexfer.loadqueue 
+	JOIN filexfer.loadjobs USING ( idLoadJob )
+	JOIN filexfer.jobs USING ( idJob )
+	GROUP BY `idJob`
+	ORDER BY ( CASE WHEN `idJob` = 0 THEN 0 ELSE 1 END ) ASC, 5 DESC 
+) x;
+\end{verbatim}
+
+
+\subsection{\texttt{logs}}
+This is the table where all of the transfer logs are kept.
+In order to retransfer a specific file that has not changed
+you will have to delete the corrisponding log entry.  Log
+entries are never pruned from this table.
+
+\subsection{\texttt{monitors}}
+This table encompasses all of the job monitors.  Like load
+jobs, not every transfer job has a job monitor, and some
+transfer jobs may have more than one job monitor.
