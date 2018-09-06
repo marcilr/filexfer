@@ -1,0 +1,19 @@
+README
+Created Fri Jul  1 08:40:41 AKDT 2016
+by Raymond E. Marcil <rmarcil@gci.com>
+
+
+Filelist
+========
+dataloader/
+  Dataloader jobs
+
+job-monitoring/
+  Job Monitoring of FileXfer
+
+job-scheduling/
+  Job Scheduling in FileXfer
+
+operation.tex
+  Operation of file transfer jobs
+
