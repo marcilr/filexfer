@@ -1,0 +1,27 @@
+README
+Created Fri Jul  1 08:26:03 AKDT 2016
+by Raymond E. Marcil <rmarcil@gci.com>
+
+
+implementation.tex
+    Implentation of file transfer jobs
+
+    configuration.tex
+        Configuration of file transfer jobs
+
+    file-transfer-jobs.tex
+        FileXfer - File Transfer Jobs
+
+Filelist
+========
+configuration.tex
+  Configuration of file transfer jobs
+
+dependencies.tex
+  Dependencies of file transfer jobs
+
+file-transfer-jobs.tex
+  FileXfer - File Transfer Jobs
+
+implementation.tex
+  Implentation of file transfer jobs
