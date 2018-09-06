@@ -1,0 +1,150 @@
+FileXfer
+
+FileXfer is a custom application that GCI OSS built whose primary purpose is to transfer files from point A to point B (most of the time via point C/itself).  It can also be used to load the collected data into a database if the data fits within the constraints of MySQL Load Data Infile SQL Syntax.  It supports FTP and SFTP for both gets and puts, and it also has limited support for HTTP gets (this feature is used to collect weather camera images off of the Terra mountain top sites for the FAA).
+
+FileXfer can also be used to prune the source server's target files to a certain number of days.  And while the default is to keep the source file time, this feature can be toggle off on a per job basis, resulting in the files having the transfer time instead as some customers prefer to know when the file was dropped off and not when the file was generated.  For performance reasons there is a cutoff feature as well which defaults to 5 days for new jobs.  FileXfer will not look more than the cutoff days back to see if a file should be collected and/or exported.  FileXfer jobs are also capable of running in audit mode, in which FileXfer will log all of the transfers but it won't physically transfer anything.  This feature can be useful to get a feed caught up without transfering a bunch of files around if for whatever reason the backlog of files doesn't need to be processed by any customers.
+
+FileXfer logs all file transfers and any errors.  However, it is not considered an error if there are no files to collect.  FileXfer also supports monitoring of transfer jobs, and can generate an alert for any reason that you can articulate with SQL.  Some examples include late and/or missing files, load queue too large, file too small, no files transfered for a certain interval, etc.  The monitoring supports internal only alerts, TAC visibile alerts, and/or emailing the alerts.  The email feature also supports sending of texts to cell phones.
+
+FileXfer will re-transfer a file if either the size and/or source file time changes, as that signals something about the file has changed.  Some feeds leverage this concept as they may use a static filename in which the data is simply re-writen to same exact file at regular intervals.
+
+The main FileXfer app server is prod-prov4-cdr1.operations.gci.com (192.168.161.47).  The "ACS" / Project Seward FileXfer app server (which contains only ACS/Project Serward related jobs) is the SPS2 OSS Test app server, osstest-em-provisioning.operations.gci.com (192.168.56.4; public IP 66.223.155.33).  The main FileXfer database server is sadc-cdr-mysql1.operations.gci.com (192.68.56.189) and the ACS/Project Seward FileXfer database server is tge SPS2 OSS Test database server, osstest-db-provisioning.operations.gci.com (192.168.69.149).  For both database servers the FileXfer database is called filexfer.
+
+Here's a breakdown of the tables:
+[mblum@development-mark ~]$ mysql -h sadc-cdr-mysql1 -sss -e "USE filexfer; SHOW TABLES"
+DATABASECHANGELOG
+DATABASECHANGELOGLOCK
+errors
+joblogs
+jobs
+loadjobs
+loadqueue
+logs
+monitors
+
+DATABASECHANGELOG
+DATABASECHANGELOGLOCK
+	These two tables manage how updates to the database structure of FileXfer are preformed and stored.
+
+errors
+	This table stores any errors FileXfer encounters.
+	
+joblogs
+	This is actually a view.  Here's the create statement:
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `filexfer`@`%` 
+    SQL SECURITY DEFINER
+VIEW `filexfer`.`joblogs` AS
+    SELECT 
+        `j`.`idJob` AS `idJob`,
+        `l`.`idLog` AS `idLog`,
+        `j`.`jobName` AS `jobName`,
+        `j`.`neName` AS `neName`,
+        `l`.`srcFileName` AS `srcFileName`,
+        `l`.`srcFileSize` AS `srcFileSize`,
+        `l`.`srcFileTime` AS `srcFileTime`,
+        `l`.`destFileSize` AS `destFileSize`,
+        `l`.`destFileName` AS `destFileName`,
+        `l`.`dtTransferStart` AS `dtTransferStart`,
+        `l`.`dtTransferStop` AS `dtTransferStop`
+    FROM
+        (`filexfer`.`jobs` `j`
+        JOIN `filexfer`.`logs` `l` ON ((`j`.`idJob` = `l`.`idJob`)));
+
+jobs
+	This stores all of the transfer jobs.  Transfer jobs utilize a cron like schedule, and their run policy can be set to schedule (i.e. run as per the cron schedule), always, and never.  There is also a wantSummary field that can be set to either yes or no.  Some customers (mainly StarSolutions MSC Usage jobs) want summaries of the transfer file (number of records etc.) and this feature automatically generates that and transfer it along with the file.  Priority is another feature of the FileXfer system.  Given a limited amount of resources you can set differing priority levels for jobs (1 - 100 with 1 being the highest priority), so that jobs with higher priorities get preference over lower priority jobs when system resources are constrained.  Generally production jobs get high priority (5) and lab/test jobs get low priority (100).
+	
+	The neName field, which stands for Network Element Name, basically defines the directory where the files will be stored.  They are stored in /data/usage/[neName].  Files are automatically archived if they are older than 2 days (to /data/usage/[neName]/archive), and archived files are deleted if they are older than 30 days.  There is a script that can be used to unarchive files (say for retransfer purposes) called /usr/bin/filexfer-fileunarchive.  It takes a file mask to unarchive and supports glob syntax.
+	
+	The idSite field is an incomplete feature and not really used at this time.
+
+loadjobs
+	This stores all of the load jobs.  Not every transfer job has a corrisponding load job, and some transfer jobs may have more than one load job.
+
+loadqueue
+	This is the queue for the load jobs.  Entries in here have yet to be loaded.  The loading is done in order.
+	
+	Here's a SQL query that can be used to view the loadqueue:
+# FileXfer Load Queue Status
+SELECT idJob, idLoadJob, jobName, neName, IF( idJob = 0, FROM_UNIXTIME( Count ), Count ) AS 'Count', fileName, fileTime
+FROM 
+(
+	SELECT 0 AS 'idJob', 0 AS 'idLoadJob', 'Current Time' AS 'jobName', 'neName', UNIX_TIMESTAMP( NOW() ) AS 'Count', 'fileName', 'fileTime'
+
+	UNION
+
+	SELECT idJob, idLoadJob, jobs.jobName, jobs.neName, COUNT(*), fileName, fileTime
+	FROM filexfer.loadqueue 
+	JOIN filexfer.loadjobs USING ( idLoadJob )
+	JOIN filexfer.jobs USING ( idJob )
+	GROUP BY `idJob`
+	ORDER BY ( CASE WHEN `idJob` = 0 THEN 0 ELSE 1 END ) ASC, 5 DESC 
+) x;
+
+
+logs
+	This is the table where all of the transfer logs are kept.  In order to retransfer a specific file that has not changed you will have to delete the corrisponding log entry.  Log entries are never pruned from this table.
+
+monitors
+	This table encompasses all of the job monitors.  Like load jobs, not every transfer job has a job monitor, and some transfer jobs may have more than one job monitor.
+
+
+The FileXfer app is made up of serveral scripts which are crond to run, as follows:
+[root@prod-prov4-cdr1 ~]# cat /etc/cron.d/filexfer
+MAILTO=""
+PERL5LIB=/opt
+
+# This script preforms all of the get/collect jobs.
+* * * * * filexfer /usr/bin/filexfer -c /etc/filexfer/filexfer-get.conf -t get
+# This script preforms all of the put/export jobs.
+* * * * * filexfer /usr/bin/filexfer -c /etc/filexfer/filexfer-put.conf -t put
+
+# This script runs all of the job monitor jobs, and generates the relevant alerts and/or emails.
+* * * * * filexfer /usr/bin/filexfer-jobmonitor -c /etc/filexfer/jobmonitor.conf
+
+# This script runs all of the data loader jobs.
+* * * * * filexfer /usr/bin/filexfer-dataloader -c /etc/filexfer/dataloader.conf
+#* * * * * filexfer /usr/bin/filexfer-epg-dataloader.plx -c /etc/filexfer/epg-dataloader.conf
+
+# These scripts take care of the archiving
+2 0 * * * filexfer for dir in /data/usage/*; do /usr/bin/filexfer-filearchive $dir >>/var/log/filexfer/filearchive.log 2>&1; done
+5 0 * * * filexfer find /data/usage -type f -name \*.sum -mmin +43200 | xargs rm
+
+FileXfer also has the concept of userscripts.  These are scripts that are run after files are collected and before they are exported (in general).
+[root@prod-prov4-cdr1 ~]# cat /etc/cron.d/filexfer-userscripts
+MAILTO=""
+PERL5LIB="/opt"
+PV_TEST_PERL=1
+
+* * * * *               filexfer chmod 644 /data/usage/SDE01P/*
+* * * * *               filexfer chmod 644 /data/usage/SDE01L/*
+0-14 0 * * *            filexfer /usr/lib/filexfer/strip-spaces-from-csv.pl >>/var/log/filexfer/strip-spaces-from-csv.log 2>&1
+0-14 1 * * *            filexfer /usr/lib/filexfer/convert-wps-om-counters-report.pl >>/var/log/filexfer/convert-wps-om-counters-report.log 2>&1
+0-14 1 * * *            filexfer /usr/lib/filexfer/convert-wps-om-counters-report-part2.pl >>/var/log/filexfer/convert-wps-om-counters-report-part2.log 2>&1
+*/15 * * * *            filexfer /usr/lib/filexfer/ericsson-oss-rl-reports-preprocess.sh -v /data/usage/OSS01/preprocess/rl*.out >>/var/log/filexfer/ericsson-oss-rl-reports-preprocess.log 2>&1
+20 * * * *              filexfer /usr/lib/filexfer/ericsson-oss-sts-reports-preprocess.plx GCIMSC0 /data/usage/OSS01/preprocess/*GCIMSC0* >>/var/log/filexfer/ericsson-oss-sts-reports-preprocess.log 2>&1
+20 * * * *              filexfer /usr/lib/filexfer/ericsson-oss-sts-reports-preprocess.plx ANAKB01 /data/usage/OSS01/preprocess/*ANAKB01* >>/var/log/filexfer/ericsson-oss-sts-reports-preprocess.log 2>&1
+*/4 * * * *             filexfer /usr/lib/filexfer/stp-rop-logs-preprocess.sh -v /data/usage/{SADC5E,SDC5E}/preprocess/stp*.log >>/var/log/filexfer/stp-rop-logs-preprocess.log 2>&1
+*/5 1 * * *             filexfer /usr/lib/filexfer/teltronics-eos-preprocess.sh -v /data/usage/EOS01/preprocess/BR*.IBR.primary >>/var/log/filexfer/teltronics-eos-preprocess.log 2>&1
+* * * * *               filexfer /usr/lib/filexfer/teltronics-eos-preprocess.sh -v /data/usage/EOS01/preprocess/BR*.IBR.primary >>/var/log/filexfer/teltronics-eos-preprocess.log 2>&1
+20-25 * * * *           filexfer /usr/lib/filexfer/interop-mmsc-preprocess.sh -v /data/usage/IOP01/preprocess/A*.dat >>/var/log/filexfer/interop-mmsc-preprocess.log 2>&1
+*/5 * * * *             filexfer /usr/lib/filexfer/homisco-preprocess.sh -v /data/usage/HMSC01/preprocess/*.txt >>/var/log/filexfer/homisco-preprocess.log 2>&1
+10,25,40,55 * * * *     filexfer /usr/lib/filexfer/ExtractCarrierTurboZoneUsage/ExtractCarrierTurboZoneUsage/ExtractCarrierTurboZoneUsage_run.sh --context_param fileMask=acs_15min_*.csv --context_param carrierId=ACS --context_param carrierPassphraseFilepath=/etc/filexfer/acs-gpg-passphrase.txt --context_param carrierFilenameFormat="'wifi-'yyyyMMddHHmm'.csv'" >>/var/log/filexfer/ExtractCarrierTurboZoneUsage_ACS.log 2>&1
+00 06 * * *             filexfer /usr/lib/filexfer/processLegacyUsage4.plx
+30 06 * * *             filexfer /usr/lib/filexfer/loadWispData.plx
+20 02 * * *             filexfer /usr/lib/filexfer/aubstats.sh
+
+
+The basic requirements for setting up a transfer new job are as follows:
+POC: [for when problems occur] 
+IP: [source host for collect jobs/destination host for export jobs]
+Protocol: [ftp/sftp]
+Credentials: [username/password]
+File Path: 
+File Mask: [supports glob syntax]
+Schedule: [cron syntax]
+Want Summary: [yes/no; generally only for StarSolutions CDR exports]
+
+There is a FileXfer GUI app on Relevance that can be used to create/delete/update transfer/load jobs and monitors, and view logs and errors.
+It is available on both presenter 4 on presenter 1 (but at this time it is safer to use presenter 4 to update jobs). Also the lab presenter (lab-presenter4) is currently pointed at the production ACS FileXfer instance.
