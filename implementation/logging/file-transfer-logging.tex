@@ -1,0 +1,27 @@
+%% -*- Mode: LaTeX -*- 
+%%
+%% file-transfer-logging.tex
+%% Created Fri Jul  1 11:09:31 AKDT 2016
+%% by Raymond E. Marcil <rmarcil@gci.com>
+%%
+%% File Transfer Logging
+%%
+
+
+
+%% ================= File Transfer Logging =====================
+%% ================= File Transfer Logging =====================
+\subsubsection{File Transfer Logging}
+Every file transfer is recorded in a database table. There are
+two reasons for this table: first, it tells \texttt{filexfer}
+hich files have already been transferred, and second, it
+provides an audit trail for SOX compliance. The table is
+\texttt{filexfer.logs} on
+\texttt{sadc-cdr-mysql1.operations.gci.com}. Use the
+\texttt{filexfer.joblogs} view to easily find logs by job name
+or network element ID.\\
+\\
+File transfer logs may also be viewed in the
+'\texttt{Logs \& Errors}' page of the web
+interface.\footnote{\href{http://oss-wiki.operations.gci.com/dev/index.php/Usage\_Collection\_Framework\_(filexfer)}{Usage
+    Collection Framework (filexfer)}}
