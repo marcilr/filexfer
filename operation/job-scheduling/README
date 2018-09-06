@@ -1,0 +1,15 @@
+README
+Created Thu Sep  6 11:49:16 AKDT 2018
+Copyright (C) 2018 by Raymond E. Marcil <marcilr@gmail.com>
+
+
+Filelist
+========
+job-scheduling.tex
+  Job Scheduling in FileXfer
+
+job-timing.tex
+  Job Timing for file transfer jobs
+
+new-job.tex
+  The basic requirements for setting up a new file transfer job.
